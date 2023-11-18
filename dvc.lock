@@ -1,0 +1,1032 @@
+schema: '2.0'
+stages:
+  h2o_SmilesToAtoms:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name h2o_SmilesToAtoms
+    params:
+      params.yaml:
+        h2o_SmilesToAtoms:
+          cell:
+          optimizer: UFF
+          seed: 1234
+          smiles: O
+    outs:
+    - path: nodes/h2o/SmilesToAtoms/atoms.h5
+      hash: md5
+      md5: 18e1daf34a7a2c928ab218e8c24b835b
+      size: 27968
+    - path: nodes/h2o/SmilesToAtoms/molecule.png
+      hash: md5
+      md5: ee619e77512b3ea29ffac80a38fcf5d9
+      size: 2793
+    - path: nodes/h2o/SmilesToAtoms/node-meta.json
+      hash: md5
+      md5: 53e055cc69cd8dfe608468972c49dd7f
+      size: 48
+  h2o_Packmol:
+    cmd: zntrack run ipsuite.nodes.Packmol --name h2o_Packmol
+    deps:
+    - path: nodes/h2o/SmilesToAtoms/atoms.h5
+      hash: md5
+      md5: 18e1daf34a7a2c928ab218e8c24b835b
+      size: 27968
+    - path: nodes/h2o/SmilesToAtoms/molecule.png
+      hash: md5
+      md5: ee619e77512b3ea29ffac80a38fcf5d9
+      size: 2793
+    - path: nodes/h2o/SmilesToAtoms/node-meta.json
+      hash: md5
+      md5: 53e055cc69cd8dfe608468972c49dd7f
+      size: 48
+    params:
+      params.yaml:
+        h2o_Packmol:
+          box:
+          count:
+          - 10
+          data_ids:
+          density: 997
+          pbc: true
+          tolerance: 2.0
+    outs:
+    - path: nodes/h2o/Packmol/atoms.h5
+      hash: md5
+      md5: f25ba45845494b4c8edad0328147ee28
+      size: 27968
+    - path: nodes/h2o/Packmol/node-meta.json
+      hash: md5
+      md5: 5d03a1c04fa809406e392a1d0ce1b275
+      size: 48
+    - path: nodes/h2o/Packmol/packmol
+      hash: md5
+      md5: e46593dfb24d1f848fd94305e4c35f5f.dir
+      size: 2192
+      nfiles: 3
+  h2o_LoadModel:
+    cmd: zntrack run src.LoadModel --name h2o_LoadModel
+    deps:
+    - path: 2023-08-14-mace-universal.model
+      hash: md5
+      md5: 619bf9f4d5aa7a7a83de8d166cc29595
+      size: 17045559
+    outs:
+    - path: nodes/h2o/LoadModel/node-meta.json
+      hash: md5
+      md5: 898d32c7e1ee5560b207953da6cb0a83
+      size: 48
+  h2o_Prediction:
+    cmd: zntrack run ipsuite.nodes.Prediction --name h2o_Prediction
+    deps:
+    - path: nodes/h2o/LoadModel/node-meta.json
+      hash: md5
+      md5: 898d32c7e1ee5560b207953da6cb0a83
+      size: 48
+    - path: nodes/h2o/Packmol/atoms.h5
+      hash: md5
+      md5: f25ba45845494b4c8edad0328147ee28
+      size: 27968
+    - path: nodes/h2o/Packmol/node-meta.json
+      hash: md5
+      md5: 5d03a1c04fa809406e392a1d0ce1b275
+      size: 48
+    - path: nodes/h2o/Packmol/packmol
+      hash: md5
+      md5: e46593dfb24d1f848fd94305e4c35f5f.dir
+      size: 2192
+      nfiles: 3
+    outs:
+    - path: nodes/h2o/Prediction/atoms.h5
+      hash: md5
+      md5: 5df4615d28e926fa3abec1a6fa58cf29
+      size: 52144
+    - path: nodes/h2o/Prediction/node-meta.json
+      hash: md5
+      md5: a536c03158bd0be5fa2bd1a5f80233d8
+      size: 48
+  LoadModel:
+    cmd: zntrack run src.LoadModel --name LoadModel
+    deps:
+    - path: 2023-08-14-mace-universal.model
+      hash: md5
+      md5: 619bf9f4d5aa7a7a83de8d166cc29595
+      size: 17045559
+    outs:
+    - path: nodes/LoadModel/node-meta.json
+      hash: md5
+      md5: f0940c3b5311cae757f3c3a72c27db0a
+      size: 48
+  h2o_ASEGeoOpt:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name h2o_ASEGeoOpt
+    deps:
+    - path: nodes/LoadModel/node-meta.json
+      hash: md5
+      md5: f0940c3b5311cae757f3c3a72c27db0a
+      size: 48
+    - path: nodes/h2o/Packmol/atoms.h5
+      hash: md5
+      md5: f25ba45845494b4c8edad0328147ee28
+      size: 27968
+    - path: nodes/h2o/Packmol/node-meta.json
+      hash: md5
+      md5: 5d03a1c04fa809406e392a1d0ce1b275
+      size: 48
+    - path: nodes/h2o/Packmol/packmol
+      hash: md5
+      md5: e46593dfb24d1f848fd94305e4c35f5f.dir
+      size: 2192
+      nfiles: 3
+    params:
+      params.yaml:
+        h2o_ASEGeoOpt:
+          data_id: 0
+          dump_rate: 1000
+          init_kwargs: {}
+          optimizer: FIRE
+          repeat:
+          - 1
+          - 1
+          - 1
+          run_kwargs:
+            fmax: 0.05
+    outs:
+    - path: nodes/h2o/ASEGeoOpt/model_outs
+      hash: md5
+      md5: 64586897446153f477c052dd0e2579ad.dir
+      size: 11
+      nfiles: 1
+    - path: nodes/h2o/ASEGeoOpt/node-meta.json
+      hash: md5
+      md5: 19c2535d6b6d8c6f998eadcc2061d819
+      size: 48
+    - path: nodes/h2o/ASEGeoOpt/trajectory.h5
+      hash: md5
+      md5: 54e6a3a87ebf758e5f6dd0cc3605d598
+      size: 449040
+  H2O_SmilesToAtoms:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name H2O_SmilesToAtoms
+    params:
+      params.yaml:
+        H2O_SmilesToAtoms:
+          cell:
+          optimizer: UFF
+          seed: 1234
+          smiles: O
+    outs:
+    - path: nodes/H2O/SmilesToAtoms/atoms.h5
+      hash: md5
+      md5: 18e1daf34a7a2c928ab218e8c24b835b
+      size: 27968
+    - path: nodes/H2O/SmilesToAtoms/molecule.png
+      hash: md5
+      md5: ee619e77512b3ea29ffac80a38fcf5d9
+      size: 2793
+    - path: nodes/H2O/SmilesToAtoms/node-meta.json
+      hash: md5
+      md5: d2261d08103510dbd57ef95d089377c3
+      size: 48
+  H2O_Packmol:
+    cmd: zntrack run ipsuite.nodes.Packmol --name H2O_Packmol
+    deps:
+    - path: nodes/H2O/SmilesToAtoms/atoms.h5
+      hash: md5
+      md5: 18e1daf34a7a2c928ab218e8c24b835b
+      size: 27968
+    - path: nodes/H2O/SmilesToAtoms/molecule.png
+      hash: md5
+      md5: ee619e77512b3ea29ffac80a38fcf5d9
+      size: 2793
+    - path: nodes/H2O/SmilesToAtoms/node-meta.json
+      hash: md5
+      md5: d2261d08103510dbd57ef95d089377c3
+      size: 48
+    params:
+      params.yaml:
+        H2O_Packmol:
+          box:
+          count:
+          - 10
+          data_ids:
+          density: 997
+          pbc: true
+          tolerance: 2.0
+    outs:
+    - path: nodes/H2O/Packmol/atoms.h5
+      hash: md5
+      md5: f25ba45845494b4c8edad0328147ee28
+      size: 27968
+    - path: nodes/H2O/Packmol/node-meta.json
+      hash: md5
+      md5: 5002effb3d9a66eeff270b7bd26377ca
+      size: 48
+    - path: nodes/H2O/Packmol/packmol
+      hash: md5
+      md5: e46593dfb24d1f848fd94305e4c35f5f.dir
+      size: 2192
+      nfiles: 3
+  H2O_ASEGeoOpt:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name H2O_ASEGeoOpt
+    deps:
+    - path: nodes/H2O/Packmol/atoms.h5
+      hash: md5
+      md5: f25ba45845494b4c8edad0328147ee28
+      size: 27968
+    - path: nodes/H2O/Packmol/node-meta.json
+      hash: md5
+      md5: 5002effb3d9a66eeff270b7bd26377ca
+      size: 48
+    - path: nodes/H2O/Packmol/packmol
+      hash: md5
+      md5: e46593dfb24d1f848fd94305e4c35f5f.dir
+      size: 2192
+      nfiles: 3
+    - path: nodes/LoadModel/node-meta.json
+      hash: md5
+      md5: f0940c3b5311cae757f3c3a72c27db0a
+      size: 48
+    params:
+      params.yaml:
+        H2O_ASEGeoOpt:
+          data_id: 0
+          dump_rate: 1000
+          init_kwargs: {}
+          optimizer: FIRE
+          repeat:
+          - 1
+          - 1
+          - 1
+          run_kwargs:
+            fmax: 0.05
+    outs:
+    - path: nodes/H2O/ASEGeoOpt/model_outs
+      hash: md5
+      md5: 64586897446153f477c052dd0e2579ad.dir
+      size: 11
+      nfiles: 1
+    - path: nodes/H2O/ASEGeoOpt/node-meta.json
+      hash: md5
+      md5: fc6404e7120ffcbffa0e4e109bdae502
+      size: 48
+    - path: nodes/H2O/ASEGeoOpt/trajectory.h5
+      hash: md5
+      md5: c67dd3364f222d7592f03e46d2875daf
+      size: 449040
+  H2O_ASEMD:
+    cmd: zntrack run ipsuite.nodes.ASEMD --name H2O_ASEMD
+    deps:
+    - path: nodes/H2O/ASEGeoOpt/model_outs
+      hash: md5
+      md5: 64586897446153f477c052dd0e2579ad.dir
+      size: 11
+      nfiles: 1
+    - path: nodes/H2O/ASEGeoOpt/node-meta.json
+      hash: md5
+      md5: fc6404e7120ffcbffa0e4e109bdae502
+      size: 48
+    - path: nodes/H2O/ASEGeoOpt/trajectory.h5
+      hash: md5
+      md5: c67dd3364f222d7592f03e46d2875daf
+      size: 449040
+    - path: nodes/LoadModel/node-meta.json
+      hash: md5
+      md5: f0940c3b5311cae757f3c3a72c27db0a
+      size: 48
+    params:
+      params.yaml:
+        H2O_ASEMD:
+          data_id: -1
+          dump_rate: 1000
+          pop_last: false
+          repeat:
+          - 1
+          - 1
+          - 1
+          sampling_rate: 10
+          seed: 42
+          steps: 50000
+          use_momenta: false
+          wrap: false
+        H2O_ASEMD+thermostat:
+          friction: 0.01
+          temperature: 298.15
+          time_step: 0.5
+    outs:
+    - path: nodes/H2O/ASEMD/metrics_dict.csv
+      hash: md5
+      md5: 1d9da2fed014683896129812ab335f39
+      size: 211224
+    - path: nodes/H2O/ASEMD/model
+      hash: md5
+      md5: 64586897446153f477c052dd0e2579ad.dir
+      size: 11
+      nfiles: 1
+    - path: nodes/H2O/ASEMD/node-meta.json
+      hash: md5
+      md5: 0746581cb43e4af5c35d1ac049422cce
+      size: 48
+    - path: nodes/H2O/ASEMD/steps_before_stopping.json
+      hash: md5
+      md5: 6bb61e3b7bce0931da574d19d1d82c88
+      size: 2
+    - path: nodes/H2O/ASEMD/trajectory.h5
+      hash: md5
+      md5: 22db43168aac43435319941b7d41ef83
+      size: 15159104
+  H2O_H2SO4_SmilesToAtoms:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name H2O_H2SO4_SmilesToAtoms
+    params:
+      params.yaml:
+        H2O_H2SO4_SmilesToAtoms:
+          cell:
+          optimizer: UFF
+          seed: 1234
+          smiles: O
+    outs:
+    - path: nodes/H2O_H2SO4/SmilesToAtoms/atoms.h5
+      hash: md5
+      md5: 18e1daf34a7a2c928ab218e8c24b835b
+      size: 27968
+    - path: nodes/H2O_H2SO4/SmilesToAtoms/molecule.png
+      hash: md5
+      md5: ee619e77512b3ea29ffac80a38fcf5d9
+      size: 2793
+    - path: nodes/H2O_H2SO4/SmilesToAtoms/node-meta.json
+      hash: md5
+      md5: f8974f7c1e700b212cd9e2edfbae0316
+      size: 48
+  H2O_H2SO4_SmilesToAtoms_1:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name H2O_H2SO4_SmilesToAtoms_1
+    params:
+      params.yaml:
+        H2O_H2SO4_SmilesToAtoms_1:
+          cell:
+          optimizer: UFF
+          seed: 1234
+          smiles: OS(=O)(=O)O
+    outs:
+    - path: nodes/H2O_H2SO4/SmilesToAtoms_1/atoms.h5
+      hash: md5
+      md5: d2340b47925a9b999c7cba1ab344c7d2
+      size: 27968
+    - path: nodes/H2O_H2SO4/SmilesToAtoms_1/molecule.png
+      hash: md5
+      md5: 6b69a5aff4695a9a0d33f3cf94096fb1
+      size: 10874
+    - path: nodes/H2O_H2SO4/SmilesToAtoms_1/node-meta.json
+      hash: md5
+      md5: e0652aa93fccfbb75a99efe7e72e2e70
+      size: 48
+  H2O_H2SO4_Packmol:
+    cmd: zntrack run ipsuite.nodes.Packmol --name H2O_H2SO4_Packmol
+    deps:
+    - path: nodes/H2O_H2SO4/SmilesToAtoms/atoms.h5
+      hash: md5
+      md5: 18e1daf34a7a2c928ab218e8c24b835b
+      size: 27968
+    - path: nodes/H2O_H2SO4/SmilesToAtoms/molecule.png
+      hash: md5
+      md5: ee619e77512b3ea29ffac80a38fcf5d9
+      size: 2793
+    - path: nodes/H2O_H2SO4/SmilesToAtoms/node-meta.json
+      hash: md5
+      md5: f8974f7c1e700b212cd9e2edfbae0316
+      size: 48
+    - path: nodes/H2O_H2SO4/SmilesToAtoms_1/atoms.h5
+      hash: md5
+      md5: d2340b47925a9b999c7cba1ab344c7d2
+      size: 27968
+    - path: nodes/H2O_H2SO4/SmilesToAtoms_1/molecule.png
+      hash: md5
+      md5: 6b69a5aff4695a9a0d33f3cf94096fb1
+      size: 10874
+    - path: nodes/H2O_H2SO4/SmilesToAtoms_1/node-meta.json
+      hash: md5
+      md5: e0652aa93fccfbb75a99efe7e72e2e70
+      size: 48
+    params:
+      params.yaml:
+        H2O_H2SO4_Packmol:
+          box:
+          count:
+          - 100
+          - 2
+          data_ids:
+          density: 997
+          pbc: true
+          tolerance: 2.0
+    outs:
+    - path: nodes/H2O_H2SO4/Packmol/atoms.h5
+      hash: md5
+      md5: 63786ffd553373e30e250421953fc694
+      size: 38016
+    - path: nodes/H2O_H2SO4/Packmol/node-meta.json
+      hash: md5
+      md5: 6ed135b2a92f93f0342397c102f77163
+      size: 48
+    - path: nodes/H2O_H2SO4/Packmol/packmol
+      hash: md5
+      md5: 783f548d4c1097718998220256bbc9e2.dir
+      size: 18672
+      nfiles: 4
+  H2O_H2SO4_ASEGeoOpt:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name H2O_H2SO4_ASEGeoOpt
+    deps:
+    - path: nodes/H2O_H2SO4/Packmol/atoms.h5
+      hash: md5
+      md5: 63786ffd553373e30e250421953fc694
+      size: 38016
+    - path: nodes/H2O_H2SO4/Packmol/node-meta.json
+      hash: md5
+      md5: 6ed135b2a92f93f0342397c102f77163
+      size: 48
+    - path: nodes/H2O_H2SO4/Packmol/packmol
+      hash: md5
+      md5: 783f548d4c1097718998220256bbc9e2.dir
+      size: 18672
+      nfiles: 4
+    - path: nodes/LoadModel/node-meta.json
+      hash: md5
+      md5: f0940c3b5311cae757f3c3a72c27db0a
+      size: 48
+    params:
+      params.yaml:
+        H2O_H2SO4_ASEGeoOpt:
+          data_id: 0
+          dump_rate: 1000
+          init_kwargs: {}
+          optimizer: FIRE
+          repeat:
+          - 1
+          - 1
+          - 1
+          run_kwargs:
+            fmax: 0.5
+    outs:
+    - path: nodes/H2O_H2SO4/ASEGeoOpt/model_outs
+      hash: md5
+      md5: 64586897446153f477c052dd0e2579ad.dir
+      size: 11
+      nfiles: 1
+    - path: nodes/H2O_H2SO4/ASEGeoOpt/node-meta.json
+      hash: md5
+      md5: f6f29c0a084bf74b096cb148630069ac
+      size: 48
+    - path: nodes/H2O_H2SO4/ASEGeoOpt/trajectory.h5
+      hash: md5
+      md5: 6a69b0693b9ed19ff8708648821a4895
+      size: 1263952
+  H2O_H2SO4_ASEMD:
+    cmd: zntrack run ipsuite.nodes.ASEMD --name H2O_H2SO4_ASEMD
+    deps:
+    - path: nodes/H2O_H2SO4/ASEGeoOpt/model_outs
+      hash: md5
+      md5: 64586897446153f477c052dd0e2579ad.dir
+      size: 11
+      nfiles: 1
+    - path: nodes/H2O_H2SO4/ASEGeoOpt/node-meta.json
+      hash: md5
+      md5: f6f29c0a084bf74b096cb148630069ac
+      size: 48
+    - path: nodes/H2O_H2SO4/ASEGeoOpt/trajectory.h5
+      hash: md5
+      md5: 6a69b0693b9ed19ff8708648821a4895
+      size: 1263952
+    - path: nodes/LoadModel/node-meta.json
+      hash: md5
+      md5: f0940c3b5311cae757f3c3a72c27db0a
+      size: 48
+    params:
+      params.yaml:
+        H2O_H2SO4_ASEMD:
+          data_id: -1
+          dump_rate: 1000
+          pop_last: false
+          repeat:
+          - 1
+          - 1
+          - 1
+          sampling_rate: 1
+          seed: 42
+          steps: 50000
+          use_momenta: false
+          wrap: false
+        H2O_H2SO4_ASEMD+thermostat:
+          friction: 0.01
+          temperature: 298.15
+          time_step: 0.5
+    outs:
+    - path: nodes/H2O_H2SO4/ASEMD/metrics_dict.csv
+      hash: md5
+      md5: 0f5a6941d69911a0594d7981d9236ed4
+      size: 2157904
+    - path: nodes/H2O_H2SO4/ASEMD/model
+      hash: md5
+      md5: 64586897446153f477c052dd0e2579ad.dir
+      size: 11
+      nfiles: 1
+    - path: nodes/H2O_H2SO4/ASEMD/node-meta.json
+      hash: md5
+      md5: 3d0e83a8b2f1173149b8d8f4ac699b77
+      size: 48
+    - path: nodes/H2O_H2SO4/ASEMD/steps_before_stopping.json
+      hash: md5
+      md5: 6bb61e3b7bce0931da574d19d1d82c88
+      size: 2
+    - path: nodes/H2O_H2SO4/ASEMD/trajectory.h5
+      hash: md5
+      md5: e78953e2f3bd62e60417e681e57feae6
+      size: 1420510672
+  H2O_AcAc_SmilesToAtoms:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name H2O_AcAc_SmilesToAtoms
+    params:
+      params.yaml:
+        H2O_AcAc_SmilesToAtoms:
+          cell:
+          optimizer: UFF
+          seed: 1234
+          smiles: O
+    outs:
+    - path: nodes/H2O_AcAc/SmilesToAtoms/atoms.h5
+      hash: md5
+      md5: 18e1daf34a7a2c928ab218e8c24b835b
+      size: 27968
+    - path: nodes/H2O_AcAc/SmilesToAtoms/molecule.png
+      hash: md5
+      md5: ee619e77512b3ea29ffac80a38fcf5d9
+      size: 2793
+    - path: nodes/H2O_AcAc/SmilesToAtoms/node-meta.json
+      hash: md5
+      md5: 7c2e3e3de2cbe91447deda80c7bec9c1
+      size: 48
+  H2O_AcAc_SmilesToAtoms_1:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name H2O_AcAc_SmilesToAtoms_1
+    params:
+      params.yaml:
+        H2O_AcAc_SmilesToAtoms_1:
+          cell:
+          optimizer: UFF
+          seed: 1234
+          smiles: CC(=O)OC(=O)C
+    outs:
+    - path: nodes/H2O_AcAc/SmilesToAtoms_1/atoms.h5
+      hash: md5
+      md5: 5c50c89da2f7f649ced874a6e1100863
+      size: 27968
+    - path: nodes/H2O_AcAc/SmilesToAtoms_1/molecule.png
+      hash: md5
+      md5: 160bfe45d0198b55717653ced8b13923
+      size: 4952
+    - path: nodes/H2O_AcAc/SmilesToAtoms_1/node-meta.json
+      hash: md5
+      md5: 3bb6566b0167ff62bbce7ce8e239da68
+      size: 48
+  H2O_AcAc_Packmol:
+    cmd: zntrack run ipsuite.nodes.Packmol --name H2O_AcAc_Packmol
+    deps:
+    - path: nodes/H2O_AcAc/SmilesToAtoms/atoms.h5
+      hash: md5
+      md5: 18e1daf34a7a2c928ab218e8c24b835b
+      size: 27968
+    - path: nodes/H2O_AcAc/SmilesToAtoms/molecule.png
+      hash: md5
+      md5: ee619e77512b3ea29ffac80a38fcf5d9
+      size: 2793
+    - path: nodes/H2O_AcAc/SmilesToAtoms/node-meta.json
+      hash: md5
+      md5: 7c2e3e3de2cbe91447deda80c7bec9c1
+      size: 48
+    - path: nodes/H2O_AcAc/SmilesToAtoms_1/atoms.h5
+      hash: md5
+      md5: 5c50c89da2f7f649ced874a6e1100863
+      size: 27968
+    - path: nodes/H2O_AcAc/SmilesToAtoms_1/molecule.png
+      hash: md5
+      md5: 160bfe45d0198b55717653ced8b13923
+      size: 4952
+    - path: nodes/H2O_AcAc/SmilesToAtoms_1/node-meta.json
+      hash: md5
+      md5: 3bb6566b0167ff62bbce7ce8e239da68
+      size: 48
+    params:
+      params.yaml:
+        H2O_AcAc_Packmol:
+          box:
+          count:
+          - 10
+          - 1
+          data_ids:
+          density: 997
+          pbc: true
+          tolerance: 2.0
+    outs:
+    - path: nodes/H2O_AcAc/Packmol/atoms.h5
+      hash: md5
+      md5: c24249244d86419a0079542f9f1443a6
+      size: 27968
+    - path: nodes/H2O_AcAc/Packmol/node-meta.json
+      hash: md5
+      md5: 4ee44184373747571c6d26b9762f7123
+      size: 48
+    - path: nodes/H2O_AcAc/Packmol/packmol
+      hash: md5
+      md5: 644dc05262a6d33be01ae6f5736c3648.dir
+      size: 3814
+      nfiles: 4
+  H2O_AcAc_ASEGeoOpt:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name H2O_AcAc_ASEGeoOpt
+    deps:
+    - path: nodes/H2O_AcAc/Packmol/atoms.h5
+      hash: md5
+      md5: c24249244d86419a0079542f9f1443a6
+      size: 27968
+    - path: nodes/H2O_AcAc/Packmol/node-meta.json
+      hash: md5
+      md5: 4ee44184373747571c6d26b9762f7123
+      size: 48
+    - path: nodes/H2O_AcAc/Packmol/packmol
+      hash: md5
+      md5: 644dc05262a6d33be01ae6f5736c3648.dir
+      size: 3814
+      nfiles: 4
+    - path: nodes/LoadModel/node-meta.json
+      hash: md5
+      md5: f0940c3b5311cae757f3c3a72c27db0a
+      size: 48
+    params:
+      params.yaml:
+        H2O_AcAc_ASEGeoOpt:
+          data_id: 0
+          dump_rate: 1000
+          init_kwargs: {}
+          optimizer: FIRE
+          repeat:
+          - 1
+          - 1
+          - 1
+          run_kwargs:
+            fmax: 0.05
+    outs:
+    - path: nodes/H2O_AcAc/ASEGeoOpt/model_outs
+      hash: md5
+      md5: 64586897446153f477c052dd0e2579ad.dir
+      size: 11
+      nfiles: 1
+    - path: nodes/H2O_AcAc/ASEGeoOpt/node-meta.json
+      hash: md5
+      md5: e31af77876702e1b38b6f761c0679b51
+      size: 48
+    - path: nodes/H2O_AcAc/ASEGeoOpt/trajectory.h5
+      hash: md5
+      md5: 1c69ba66bc2db100c2ecc19233dbdf27
+      size: 949688
+  H2O_AcAc_ASEMD:
+    cmd: zntrack run ipsuite.nodes.ASEMD --name H2O_AcAc_ASEMD
+    deps:
+    - path: nodes/H2O_AcAc/ASEGeoOpt/model_outs
+      hash: md5
+      md5: 64586897446153f477c052dd0e2579ad.dir
+      size: 11
+      nfiles: 1
+    - path: nodes/H2O_AcAc/ASEGeoOpt/node-meta.json
+      hash: md5
+      md5: e31af77876702e1b38b6f761c0679b51
+      size: 48
+    - path: nodes/H2O_AcAc/ASEGeoOpt/trajectory.h5
+      hash: md5
+      md5: 1c69ba66bc2db100c2ecc19233dbdf27
+      size: 949688
+    - path: nodes/LoadModel/node-meta.json
+      hash: md5
+      md5: f0940c3b5311cae757f3c3a72c27db0a
+      size: 48
+    params:
+      params.yaml:
+        H2O_AcAc_ASEMD:
+          data_id: -1
+          dump_rate: 1000
+          pop_last: false
+          repeat:
+          - 1
+          - 1
+          - 1
+          sampling_rate: 1
+          seed: 42
+          steps: 50000
+          use_momenta: false
+          wrap: false
+        H2O_AcAc_ASEMD+thermostat:
+          friction: 0.01
+          temperature: 298.15
+          time_step: 0.5
+    outs:
+    - path: nodes/H2O_AcAc/ASEMD/metrics_dict.csv
+      hash: md5
+      md5: 9f7780879e1957fe729404ad21f98ed7
+      size: 2159774
+    - path: nodes/H2O_AcAc/ASEMD/model
+      hash: md5
+      md5: 64586897446153f477c052dd0e2579ad.dir
+      size: 11
+      nfiles: 1
+    - path: nodes/H2O_AcAc/ASEMD/node-meta.json
+      hash: md5
+      md5: 52a694b5cb1984599c21089010e313b2
+      size: 48
+    - path: nodes/H2O_AcAc/ASEMD/steps_before_stopping.json
+      hash: md5
+      md5: 6bb61e3b7bce0931da574d19d1d82c88
+      size: 2
+    - path: nodes/H2O_AcAc/ASEMD/trajectory.h5
+      hash: md5
+      md5: a2e1340f23b7449cd416b2280d9eb82a
+      size: 203846096
+  BMIM_PF6_SmilesToConformers:
+    cmd: zntrack run ipsuite.nodes.SmilesToConformers --name BMIM_PF6_SmilesToConformers
+    params:
+      params.yaml:
+        BMIM_PF6_SmilesToConformers:
+          cell: 100
+          maxAttempts: 1000
+          numConfs: 200
+          seed: 42
+          smiles: CCCCN1C=C[N+](=C1)C
+    outs:
+    - path: nodes/BMIM_PF6/SmilesToConformers/atoms.h5
+      hash: md5
+      md5: 8d63d14048163fe682f5d93882699407
+      size: 250368
+    - path: nodes/BMIM_PF6/SmilesToConformers/node-meta.json
+      hash: md5
+      md5: 4963ce633d00aafed4dc44399190619a
+      size: 48
+  BMIM_PF6_SmilesToConformers_1:
+    cmd: zntrack run ipsuite.nodes.SmilesToConformers --name BMIM_PF6_SmilesToConformers_1
+    params:
+      params.yaml:
+        BMIM_PF6_SmilesToConformers_1:
+          cell: 100
+          maxAttempts: 1000
+          numConfs: 200
+          seed: 42
+          smiles: F[P-](F)(F)(F)(F)F
+    outs:
+    - path: nodes/BMIM_PF6/SmilesToConformers_1/atoms.h5
+      hash: md5
+      md5: ba594fc3d54d310b4adcdb06bd24ad33
+      size: 91968
+    - path: nodes/BMIM_PF6/SmilesToConformers_1/node-meta.json
+      hash: md5
+      md5: de9c6e960b72978d4d10b91e22e1bace
+      size: 48
+  BMIM_PF6_MultiPackmol:
+    cmd: zntrack run ipsuite.nodes.MultiPackmol --name BMIM_PF6_MultiPackmol
+    deps:
+    - path: nodes/BMIM_PF6/SmilesToConformers/atoms.h5
+      hash: md5
+      md5: 8d63d14048163fe682f5d93882699407
+      size: 250368
+    - path: nodes/BMIM_PF6/SmilesToConformers/node-meta.json
+      hash: md5
+      md5: 4963ce633d00aafed4dc44399190619a
+      size: 48
+    - path: nodes/BMIM_PF6/SmilesToConformers_1/atoms.h5
+      hash: md5
+      md5: ba594fc3d54d310b4adcdb06bd24ad33
+      size: 91968
+    - path: nodes/BMIM_PF6/SmilesToConformers_1/node-meta.json
+      hash: md5
+      md5: de9c6e960b72978d4d10b91e22e1bace
+      size: 48
+    params:
+      params.yaml:
+        BMIM_PF6_MultiPackmol:
+          box:
+          count:
+          - 1
+          - 1
+          density: 1380
+          n_configurations: 200
+          pbc: false
+          seed: 42
+          tolerance: 2.0
+    outs:
+    - path: nodes/BMIM_PF6/MultiPackmol/atoms.h5
+      hash: md5
+      md5: 57840f9a9f505d9e626356164fd27ed0
+      size: 298368
+    - path: nodes/BMIM_PF6/MultiPackmol/node-meta.json
+      hash: md5
+      md5: 25c9cbabdd28dea102d308ae6be450dd
+      size: 48
+    - path: nodes/BMIM_PF6/MultiPackmol/packmol
+      hash: md5
+      md5: ec46d545e832a2ea1b5d3465a1ea2607.dir
+      size: 854287
+      nfiles: 800
+  ASA_SmilesToAtoms:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name ASA_SmilesToAtoms
+    params:
+      params.yaml:
+        ASA_SmilesToAtoms:
+          cell:
+          optimizer: UFF
+          seed: 1234
+          smiles: C1=CC=C(C(=C1)C(=O)O)O
+    outs:
+    - path: nodes/ASA/SmilesToAtoms/atoms.h5
+      hash: md5
+      md5: 2441cdcbc4733a11829ffa7ab4da6a23
+      size: 27968
+    - path: nodes/ASA/SmilesToAtoms/molecule.png
+      hash: md5
+      md5: f1c93685c30b6c0db3d8e10971be8175
+      size: 11134
+    - path: nodes/ASA/SmilesToAtoms/node-meta.json
+      hash: md5
+      md5: f497a474c4c52d5be4b0fd2eebf646b1
+      size: 48
+  ASA_SmilesToAtoms_1:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name ASA_SmilesToAtoms_1
+    params:
+      params.yaml:
+        ASA_SmilesToAtoms_1:
+          cell:
+          optimizer: UFF
+          seed: 1234
+          smiles: CC(=O)OC(=O)C
+    outs:
+    - path: nodes/ASA/SmilesToAtoms_1/atoms.h5
+      hash: md5
+      md5: 5c50c89da2f7f649ced874a6e1100863
+      size: 27968
+    - path: nodes/ASA/SmilesToAtoms_1/molecule.png
+      hash: md5
+      md5: 160bfe45d0198b55717653ced8b13923
+      size: 4952
+    - path: nodes/ASA/SmilesToAtoms_1/node-meta.json
+      hash: md5
+      md5: 335a910da8166180cdacf622f12e3ea7
+      size: 48
+  ASA_SmilesToAtoms_2:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name ASA_SmilesToAtoms_2
+    params:
+      params.yaml:
+        ASA_SmilesToAtoms_2:
+          cell:
+          optimizer: UFF
+          seed: 1234
+          smiles: OS(=O)(=O)O
+    outs:
+    - path: nodes/ASA/SmilesToAtoms_2/atoms.h5
+      hash: md5
+      md5: d2340b47925a9b999c7cba1ab344c7d2
+      size: 27968
+    - path: nodes/ASA/SmilesToAtoms_2/molecule.png
+      hash: md5
+      md5: 6b69a5aff4695a9a0d33f3cf94096fb1
+      size: 10874
+    - path: nodes/ASA/SmilesToAtoms_2/node-meta.json
+      hash: md5
+      md5: ebf7b295ac1f0b03d8e84af24fc5bec3
+      size: 48
+  DCM_H2SO4_SmilesToAtoms_1:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name DCM_H2SO4_SmilesToAtoms_1
+    params:
+      params.yaml:
+        DCM_H2SO4_SmilesToAtoms_1:
+          cell:
+          optimizer: UFF
+          seed: 1234
+          smiles: OS(=O)(=O)O
+    outs:
+    - path: nodes/DCM_H2SO4/SmilesToAtoms_1/atoms.h5
+      hash: md5
+      md5: d2340b47925a9b999c7cba1ab344c7d2
+      size: 27968
+    - path: nodes/DCM_H2SO4/SmilesToAtoms_1/molecule.png
+      hash: md5
+      md5: 6b69a5aff4695a9a0d33f3cf94096fb1
+      size: 10874
+    - path: nodes/DCM_H2SO4/SmilesToAtoms_1/node-meta.json
+      hash: md5
+      md5: a40c5013699432a8c185108ba8dab3eb
+      size: 48
+  DCM_H2SO4_SmilesToAtoms:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name DCM_H2SO4_SmilesToAtoms
+    params:
+      params.yaml:
+        DCM_H2SO4_SmilesToAtoms:
+          cell:
+          optimizer: UFF
+          seed: 1234
+          smiles: C(Cl)Cl
+    outs:
+    - path: nodes/DCM_H2SO4/SmilesToAtoms/atoms.h5
+      hash: md5
+      md5: 9012bf55ad5ccc3aa647e3a3f7143dfe
+      size: 27968
+    - path: nodes/DCM_H2SO4/SmilesToAtoms/molecule.png
+      hash: md5
+      md5: 56a87925ef5509141bc199df68bec16c
+      size: 5165
+    - path: nodes/DCM_H2SO4/SmilesToAtoms/node-meta.json
+      hash: md5
+      md5: aad70bf78e5d7f1591d0e8b867e24479
+      size: 48
+  DCM_H2SO4_Packmol:
+    cmd: zntrack run ipsuite.nodes.Packmol --name DCM_H2SO4_Packmol
+    deps:
+    - path: nodes/DCM_H2SO4/SmilesToAtoms/atoms.h5
+      hash: md5
+      md5: 9012bf55ad5ccc3aa647e3a3f7143dfe
+      size: 27968
+    - path: nodes/DCM_H2SO4/SmilesToAtoms/molecule.png
+      hash: md5
+      md5: 56a87925ef5509141bc199df68bec16c
+      size: 5165
+    - path: nodes/DCM_H2SO4/SmilesToAtoms/node-meta.json
+      hash: md5
+      md5: aad70bf78e5d7f1591d0e8b867e24479
+      size: 48
+    - path: nodes/DCM_H2SO4/SmilesToAtoms_1/atoms.h5
+      hash: md5
+      md5: d2340b47925a9b999c7cba1ab344c7d2
+      size: 27968
+    - path: nodes/DCM_H2SO4/SmilesToAtoms_1/molecule.png
+      hash: md5
+      md5: 6b69a5aff4695a9a0d33f3cf94096fb1
+      size: 10874
+    - path: nodes/DCM_H2SO4/SmilesToAtoms_1/node-meta.json
+      hash: md5
+      md5: a40c5013699432a8c185108ba8dab3eb
+      size: 48
+    params:
+      params.yaml:
+        DCM_H2SO4_Packmol:
+          box:
+          count:
+          - 100
+          - 2
+          data_ids:
+          density: 1330
+          pbc: true
+          tolerance: 2.0
+    outs:
+    - path: nodes/DCM_H2SO4/Packmol/atoms.h5
+      hash: md5
+      md5: f12c99473bae5ca573c4384d04d63295
+      size: 44416
+    - path: nodes/DCM_H2SO4/Packmol/node-meta.json
+      hash: md5
+      md5: 7193abd519b293115bd8a4f38bba3758
+      size: 48
+    - path: nodes/DCM_H2SO4/Packmol/packmol
+      hash: md5
+      md5: dfefbb419280ece6961c475d9bd22d65.dir
+      size: 29980
+      nfiles: 4
+  DCM_H2SO4_ASEGeoOpt:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name DCM_H2SO4_ASEGeoOpt
+    deps:
+    - path: nodes/DCM_H2SO4/Packmol/atoms.h5
+      hash: md5
+      md5: f12c99473bae5ca573c4384d04d63295
+      size: 44416
+    - path: nodes/DCM_H2SO4/Packmol/node-meta.json
+      hash: md5
+      md5: 7193abd519b293115bd8a4f38bba3758
+      size: 48
+    - path: nodes/DCM_H2SO4/Packmol/packmol
+      hash: md5
+      md5: dfefbb419280ece6961c475d9bd22d65.dir
+      size: 29980
+      nfiles: 4
+    - path: nodes/LoadModel/node-meta.json
+      hash: md5
+      md5: f0940c3b5311cae757f3c3a72c27db0a
+      size: 48
+    params:
+      params.yaml:
+        DCM_H2SO4_ASEGeoOpt:
+          data_id: 0
+          dump_rate: 1000
+          init_kwargs: {}
+          optimizer: FIRE
+          repeat:
+          - 1
+          - 1
+          - 1
+          run_kwargs:
+            fmax: 0.5
+    outs:
+    - path: nodes/DCM_H2SO4/ASEGeoOpt/model_outs
+      hash: md5
+      md5: 64586897446153f477c052dd0e2579ad.dir
+      size: 11
+      nfiles: 1
+    - path: nodes/DCM_H2SO4/ASEGeoOpt/node-meta.json
+      hash: md5
+      md5: b7b5d3962432dfda809d9bde7f0134dc
+      size: 48
+    - path: nodes/DCM_H2SO4/ASEGeoOpt/trajectory.h5
+      hash: md5
+      md5: d892215f5d9520b3916ea7e3e289d5bf
+      size: 2166208

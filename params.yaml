@@ -1,0 +1,266 @@
+ASA_ASEGeoOpt:
+    data_id: 0
+    dump_rate: 1000
+    init_kwargs: {}
+    optimizer: FIRE
+    repeat:
+    - 1
+    - 1
+    - 1
+    run_kwargs:
+        fmax: 0.05
+ASA_ASEMD:
+    data_id: -1
+    dump_rate: 1000
+    pop_last: false
+    repeat:
+    - 1
+    - 1
+    - 1
+    sampling_rate: 1
+    seed: 42
+    steps: 200000
+    use_momenta: false
+    wrap: false
+ASA_ASEMD+thermostat:
+    friction: 0.01
+    temperature: 298.15
+    time_step: 0.5
+ASA_Packmol:
+    box: null
+    count:
+    - 20
+    - 20
+    - 2
+    data_ids: null
+    density: 1000
+    pbc: true
+    tolerance: 2.0
+ASA_SmilesToAtoms:
+    cell: null
+    optimizer: UFF
+    seed: 1234
+    smiles: C1=CC=C(C(=C1)C(=O)O)O
+ASA_SmilesToAtoms_1:
+    cell: null
+    optimizer: UFF
+    seed: 1234
+    smiles: CC(=O)OC(=O)C
+ASA_SmilesToAtoms_2:
+    cell: null
+    optimizer: UFF
+    seed: 1234
+    smiles: OS(=O)(=O)O
+BMIM_PF6_MultiPackmol:
+    box: null
+    count:
+    - 1
+    - 1
+    density: 1380
+    n_configurations: 200
+    pbc: false
+    seed: 42
+    tolerance: 2.0
+BMIM_PF6_MultiPackmol_1:
+    box: null
+    count:
+    - 10
+    density: 1380
+    n_configurations: 20
+    pbc: true
+    seed: 42
+    tolerance: 2.0
+BMIM_PF6_SmilesToConformers:
+    cell: 100
+    maxAttempts: 1000
+    numConfs: 200
+    seed: 42
+    smiles: CCCCN1C=C[N+](=C1)C
+BMIM_PF6_SmilesToConformers_1:
+    cell: 100
+    maxAttempts: 1000
+    numConfs: 200
+    seed: 42
+    smiles: F[P-](F)(F)(F)(F)F
+DCM_H2SO4_ASEGeoOpt:
+    data_id: 0
+    dump_rate: 1000
+    init_kwargs: {}
+    optimizer: FIRE
+    repeat:
+    - 1
+    - 1
+    - 1
+    run_kwargs:
+        fmax: 0.5
+DCM_H2SO4_ASEMD:
+    data_id: -1
+    dump_rate: 1000
+    pop_last: false
+    repeat:
+    - 1
+    - 1
+    - 1
+    sampling_rate: 1
+    seed: 42
+    steps: 50000
+    use_momenta: false
+    wrap: false
+DCM_H2SO4_ASEMD+thermostat:
+    friction: 0.01
+    temperature: 298.15
+    time_step: 0.5
+DCM_H2SO4_Packmol:
+    box: null
+    count:
+    - 100
+    - 2
+    data_ids: null
+    density: 1330
+    pbc: true
+    tolerance: 2.0
+DCM_H2SO4_SmilesToAtoms:
+    cell: null
+    optimizer: UFF
+    seed: 1234
+    smiles: C(Cl)Cl
+DCM_H2SO4_SmilesToAtoms_1:
+    cell: null
+    optimizer: UFF
+    seed: 1234
+    smiles: OS(=O)(=O)O
+H2O_ASEGeoOpt:
+    data_id: 0
+    dump_rate: 1000
+    init_kwargs: {}
+    optimizer: FIRE
+    repeat:
+    - 1
+    - 1
+    - 1
+    run_kwargs:
+        fmax: 0.05
+H2O_ASEMD:
+    data_id: -1
+    dump_rate: 1000
+    pop_last: false
+    repeat:
+    - 1
+    - 1
+    - 1
+    sampling_rate: 10
+    seed: 42
+    steps: 50000
+    use_momenta: false
+    wrap: false
+H2O_ASEMD+thermostat:
+    friction: 0.01
+    temperature: 298.15
+    time_step: 0.5
+H2O_AcAc_ASEGeoOpt:
+    data_id: 0
+    dump_rate: 1000
+    init_kwargs: {}
+    optimizer: FIRE
+    repeat:
+    - 1
+    - 1
+    - 1
+    run_kwargs:
+        fmax: 0.05
+H2O_AcAc_ASEMD:
+    data_id: -1
+    dump_rate: 1000
+    pop_last: false
+    repeat:
+    - 1
+    - 1
+    - 1
+    sampling_rate: 1
+    seed: 42
+    steps: 200000
+    use_momenta: false
+    wrap: false
+H2O_AcAc_ASEMD+thermostat:
+    friction: 0.01
+    temperature: 298.15
+    time_step: 0.5
+H2O_AcAc_Packmol:
+    box: null
+    count:
+    - 10
+    - 1
+    data_ids: null
+    density: 997
+    pbc: true
+    tolerance: 2.0
+H2O_AcAc_SmilesToAtoms:
+    cell: null
+    optimizer: UFF
+    seed: 1234
+    smiles: O
+H2O_AcAc_SmilesToAtoms_1:
+    cell: null
+    optimizer: UFF
+    seed: 1234
+    smiles: CC(=O)OC(=O)C
+H2O_H2SO4_ASEGeoOpt:
+    data_id: 0
+    dump_rate: 1000
+    init_kwargs: {}
+    optimizer: FIRE
+    repeat:
+    - 1
+    - 1
+    - 1
+    run_kwargs:
+        fmax: 0.5
+H2O_H2SO4_ASEMD:
+    data_id: -1
+    dump_rate: 1000
+    pop_last: false
+    repeat:
+    - 1
+    - 1
+    - 1
+    sampling_rate: 1
+    seed: 42
+    steps: 50000
+    use_momenta: false
+    wrap: false
+H2O_H2SO4_ASEMD+thermostat:
+    friction: 0.01
+    temperature: 298.15
+    time_step: 0.5
+H2O_H2SO4_Packmol:
+    box: null
+    count:
+    - 100
+    - 2
+    data_ids: null
+    density: 997
+    pbc: true
+    tolerance: 2.0
+H2O_H2SO4_SmilesToAtoms:
+    cell: null
+    optimizer: UFF
+    seed: 1234
+    smiles: O
+H2O_H2SO4_SmilesToAtoms_1:
+    cell: null
+    optimizer: UFF
+    seed: 1234
+    smiles: OS(=O)(=O)O
+H2O_Packmol:
+    box: null
+    count:
+    - 10
+    data_ids: null
+    density: 997
+    pbc: true
+    tolerance: 2.0
+H2O_SmilesToAtoms:
+    cell: null
+    optimizer: UFF
+    seed: 1234
+    smiles: O

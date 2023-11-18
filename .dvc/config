@@ -1,0 +1,7 @@
+[core]
+    remote = origin
+['remote "origin"']
+    url = s3://public/fabian.zills/mace_foundations
+    endpointurl = https://minio.icp.uni-stuttgart.de
+    access_key_id = public_toitohkah0Urujoh
+    secret_access_key = saejeeTo7eiYoodOophai9ih7eu6ze8

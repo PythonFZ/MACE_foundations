@@ -1,0 +1,413 @@
+plots:
+- nodes/H2O_H2SO4/ASEMD/metrics_dict.csv: {}
+- nodes/H2O_AcAc/ASEMD/metrics_dict.csv: {}
+stages:
+  ASA_ASEGeoOpt:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name ASA_ASEGeoOpt
+    deps:
+    - nodes/ASA/Packmol/atoms.h5
+    - nodes/ASA/Packmol/node-meta.json
+    - nodes/ASA/Packmol/packmol
+    - nodes/LoadModel/node-meta.json
+    metrics:
+    - nodes/ASA/ASEGeoOpt/node-meta.json:
+        cache: false
+    outs:
+    - nodes/ASA/ASEGeoOpt/model_outs
+    - nodes/ASA/ASEGeoOpt/trajectory.h5
+    params:
+    - ASA_ASEGeoOpt
+  ASA_ASEMD:
+    cmd: zntrack run ipsuite.nodes.ASEMD --name ASA_ASEMD
+    deps:
+    - nodes/ASA/ASEGeoOpt/model_outs
+    - nodes/ASA/ASEGeoOpt/node-meta.json
+    - nodes/ASA/ASEGeoOpt/trajectory.h5
+    - nodes/LoadModel/node-meta.json
+    metrics:
+    - nodes/ASA/ASEMD/node-meta.json:
+        cache: false
+    - nodes/ASA/ASEMD/steps_before_stopping.json:
+        cache: false
+    outs:
+    - nodes/ASA/ASEMD/metrics_dict.csv
+    - nodes/ASA/ASEMD/model
+    - nodes/ASA/ASEMD/trajectory.h5
+    params:
+    - ASA_ASEMD
+    - ASA_ASEMD+thermostat
+  ASA_Packmol:
+    cmd: zntrack run ipsuite.nodes.Packmol --name ASA_Packmol
+    deps:
+    - nodes/ASA/SmilesToAtoms/atoms.h5
+    - nodes/ASA/SmilesToAtoms/molecule.png
+    - nodes/ASA/SmilesToAtoms/node-meta.json
+    - nodes/ASA/SmilesToAtoms_1/atoms.h5
+    - nodes/ASA/SmilesToAtoms_1/molecule.png
+    - nodes/ASA/SmilesToAtoms_1/node-meta.json
+    - nodes/ASA/SmilesToAtoms_2/atoms.h5
+    - nodes/ASA/SmilesToAtoms_2/molecule.png
+    - nodes/ASA/SmilesToAtoms_2/node-meta.json
+    metrics:
+    - nodes/ASA/Packmol/node-meta.json:
+        cache: false
+    outs:
+    - nodes/ASA/Packmol/atoms.h5
+    - nodes/ASA/Packmol/packmol
+    params:
+    - ASA_Packmol
+  ASA_SmilesToAtoms:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name ASA_SmilesToAtoms
+    metrics:
+    - nodes/ASA/SmilesToAtoms/node-meta.json:
+        cache: false
+    outs:
+    - nodes/ASA/SmilesToAtoms/atoms.h5
+    - nodes/ASA/SmilesToAtoms/molecule.png
+    params:
+    - ASA_SmilesToAtoms
+  ASA_SmilesToAtoms_1:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name ASA_SmilesToAtoms_1
+    metrics:
+    - nodes/ASA/SmilesToAtoms_1/node-meta.json:
+        cache: false
+    outs:
+    - nodes/ASA/SmilesToAtoms_1/atoms.h5
+    - nodes/ASA/SmilesToAtoms_1/molecule.png
+    params:
+    - ASA_SmilesToAtoms_1
+  ASA_SmilesToAtoms_2:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name ASA_SmilesToAtoms_2
+    metrics:
+    - nodes/ASA/SmilesToAtoms_2/node-meta.json:
+        cache: false
+    outs:
+    - nodes/ASA/SmilesToAtoms_2/atoms.h5
+    - nodes/ASA/SmilesToAtoms_2/molecule.png
+    params:
+    - ASA_SmilesToAtoms_2
+  BMIM_PF6_MultiPackmol:
+    cmd: zntrack run ipsuite.nodes.MultiPackmol --name BMIM_PF6_MultiPackmol
+    deps:
+    - nodes/BMIM_PF6/SmilesToConformers/atoms.h5
+    - nodes/BMIM_PF6/SmilesToConformers/node-meta.json
+    - nodes/BMIM_PF6/SmilesToConformers_1/atoms.h5
+    - nodes/BMIM_PF6/SmilesToConformers_1/node-meta.json
+    metrics:
+    - nodes/BMIM_PF6/MultiPackmol/node-meta.json:
+        cache: false
+    outs:
+    - nodes/BMIM_PF6/MultiPackmol/atoms.h5
+    - nodes/BMIM_PF6/MultiPackmol/packmol
+    params:
+    - BMIM_PF6_MultiPackmol
+  BMIM_PF6_MultiPackmol_1:
+    cmd: zntrack run ipsuite.nodes.MultiPackmol --name BMIM_PF6_MultiPackmol_1
+    deps:
+    - nodes/BMIM_PF6/MultiPackmol/atoms.h5
+    - nodes/BMIM_PF6/MultiPackmol/node-meta.json
+    - nodes/BMIM_PF6/MultiPackmol/packmol
+    metrics:
+    - nodes/BMIM_PF6/MultiPackmol_1/node-meta.json:
+        cache: false
+    outs:
+    - nodes/BMIM_PF6/MultiPackmol_1/atoms.h5
+    - nodes/BMIM_PF6/MultiPackmol_1/packmol
+    params:
+    - BMIM_PF6_MultiPackmol_1
+  BMIM_PF6_SmilesToConformers:
+    cmd: zntrack run ipsuite.nodes.SmilesToConformers --name BMIM_PF6_SmilesToConformers
+    metrics:
+    - nodes/BMIM_PF6/SmilesToConformers/node-meta.json:
+        cache: false
+    outs:
+    - nodes/BMIM_PF6/SmilesToConformers/atoms.h5
+    params:
+    - BMIM_PF6_SmilesToConformers
+  BMIM_PF6_SmilesToConformers_1:
+    cmd: zntrack run ipsuite.nodes.SmilesToConformers --name BMIM_PF6_SmilesToConformers_1
+    metrics:
+    - nodes/BMIM_PF6/SmilesToConformers_1/node-meta.json:
+        cache: false
+    outs:
+    - nodes/BMIM_PF6/SmilesToConformers_1/atoms.h5
+    params:
+    - BMIM_PF6_SmilesToConformers_1
+  H2O_ASEGeoOpt:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name H2O_ASEGeoOpt
+    deps:
+    - nodes/H2O/Packmol/atoms.h5
+    - nodes/H2O/Packmol/node-meta.json
+    - nodes/H2O/Packmol/packmol
+    - nodes/LoadModel/node-meta.json
+    metrics:
+    - nodes/H2O/ASEGeoOpt/node-meta.json:
+        cache: false
+    outs:
+    - nodes/H2O/ASEGeoOpt/model_outs
+    - nodes/H2O/ASEGeoOpt/trajectory.h5
+    params:
+    - H2O_ASEGeoOpt
+  H2O_ASEMD:
+    cmd: zntrack run ipsuite.nodes.ASEMD --name H2O_ASEMD
+    deps:
+    - nodes/H2O/ASEGeoOpt/model_outs
+    - nodes/H2O/ASEGeoOpt/node-meta.json
+    - nodes/H2O/ASEGeoOpt/trajectory.h5
+    - nodes/LoadModel/node-meta.json
+    metrics:
+    - nodes/H2O/ASEMD/node-meta.json:
+        cache: false
+    - nodes/H2O/ASEMD/steps_before_stopping.json:
+        cache: false
+    outs:
+    - nodes/H2O/ASEMD/metrics_dict.csv
+    - nodes/H2O/ASEMD/model
+    - nodes/H2O/ASEMD/trajectory.h5
+    params:
+    - H2O_ASEMD
+    - H2O_ASEMD+thermostat
+  H2O_AcAc_ASEGeoOpt:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name H2O_AcAc_ASEGeoOpt
+    deps:
+    - nodes/H2O_AcAc/Packmol/atoms.h5
+    - nodes/H2O_AcAc/Packmol/node-meta.json
+    - nodes/H2O_AcAc/Packmol/packmol
+    - nodes/LoadModel/node-meta.json
+    metrics:
+    - nodes/H2O_AcAc/ASEGeoOpt/node-meta.json:
+        cache: false
+    outs:
+    - nodes/H2O_AcAc/ASEGeoOpt/model_outs
+    - nodes/H2O_AcAc/ASEGeoOpt/trajectory.h5
+    params:
+    - H2O_AcAc_ASEGeoOpt
+  H2O_AcAc_ASEMD:
+    cmd: zntrack run ipsuite.nodes.ASEMD --name H2O_AcAc_ASEMD
+    deps:
+    - nodes/H2O_AcAc/ASEGeoOpt/model_outs
+    - nodes/H2O_AcAc/ASEGeoOpt/node-meta.json
+    - nodes/H2O_AcAc/ASEGeoOpt/trajectory.h5
+    - nodes/LoadModel/node-meta.json
+    metrics:
+    - nodes/H2O_AcAc/ASEMD/node-meta.json:
+        cache: false
+    - nodes/H2O_AcAc/ASEMD/steps_before_stopping.json:
+        cache: false
+    outs:
+    - nodes/H2O_AcAc/ASEMD/metrics_dict.csv
+    - nodes/H2O_AcAc/ASEMD/model
+    - nodes/H2O_AcAc/ASEMD/trajectory.h5
+    params:
+    - H2O_AcAc_ASEMD
+    - H2O_AcAc_ASEMD+thermostat
+  H2O_AcAc_Packmol:
+    cmd: zntrack run ipsuite.nodes.Packmol --name H2O_AcAc_Packmol
+    deps:
+    - nodes/H2O_AcAc/SmilesToAtoms/atoms.h5
+    - nodes/H2O_AcAc/SmilesToAtoms/molecule.png
+    - nodes/H2O_AcAc/SmilesToAtoms/node-meta.json
+    - nodes/H2O_AcAc/SmilesToAtoms_1/atoms.h5
+    - nodes/H2O_AcAc/SmilesToAtoms_1/molecule.png
+    - nodes/H2O_AcAc/SmilesToAtoms_1/node-meta.json
+    metrics:
+    - nodes/H2O_AcAc/Packmol/node-meta.json:
+        cache: false
+    outs:
+    - nodes/H2O_AcAc/Packmol/atoms.h5
+    - nodes/H2O_AcAc/Packmol/packmol
+    params:
+    - H2O_AcAc_Packmol
+  H2O_AcAc_SmilesToAtoms:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name H2O_AcAc_SmilesToAtoms
+    metrics:
+    - nodes/H2O_AcAc/SmilesToAtoms/node-meta.json:
+        cache: false
+    outs:
+    - nodes/H2O_AcAc/SmilesToAtoms/atoms.h5
+    - nodes/H2O_AcAc/SmilesToAtoms/molecule.png
+    params:
+    - H2O_AcAc_SmilesToAtoms
+  H2O_AcAc_SmilesToAtoms_1:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name H2O_AcAc_SmilesToAtoms_1
+    metrics:
+    - nodes/H2O_AcAc/SmilesToAtoms_1/node-meta.json:
+        cache: false
+    outs:
+    - nodes/H2O_AcAc/SmilesToAtoms_1/atoms.h5
+    - nodes/H2O_AcAc/SmilesToAtoms_1/molecule.png
+    params:
+    - H2O_AcAc_SmilesToAtoms_1
+  H2O_H2SO4_ASEGeoOpt:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name H2O_H2SO4_ASEGeoOpt
+    deps:
+    - nodes/H2O_H2SO4/Packmol/atoms.h5
+    - nodes/H2O_H2SO4/Packmol/node-meta.json
+    - nodes/H2O_H2SO4/Packmol/packmol
+    - nodes/LoadModel/node-meta.json
+    metrics:
+    - nodes/H2O_H2SO4/ASEGeoOpt/node-meta.json:
+        cache: false
+    outs:
+    - nodes/H2O_H2SO4/ASEGeoOpt/model_outs
+    - nodes/H2O_H2SO4/ASEGeoOpt/trajectory.h5
+    params:
+    - H2O_H2SO4_ASEGeoOpt
+  H2O_H2SO4_ASEMD:
+    cmd: zntrack run ipsuite.nodes.ASEMD --name H2O_H2SO4_ASEMD
+    deps:
+    - nodes/H2O_H2SO4/ASEGeoOpt/model_outs
+    - nodes/H2O_H2SO4/ASEGeoOpt/node-meta.json
+    - nodes/H2O_H2SO4/ASEGeoOpt/trajectory.h5
+    - nodes/LoadModel/node-meta.json
+    metrics:
+    - nodes/H2O_H2SO4/ASEMD/node-meta.json:
+        cache: false
+    - nodes/H2O_H2SO4/ASEMD/steps_before_stopping.json:
+        cache: false
+    outs:
+    - nodes/H2O_H2SO4/ASEMD/metrics_dict.csv
+    - nodes/H2O_H2SO4/ASEMD/model
+    - nodes/H2O_H2SO4/ASEMD/trajectory.h5
+    params:
+    - H2O_H2SO4_ASEMD
+    - H2O_H2SO4_ASEMD+thermostat
+  H2O_H2SO4_Packmol:
+    cmd: zntrack run ipsuite.nodes.Packmol --name H2O_H2SO4_Packmol
+    deps:
+    - nodes/H2O_H2SO4/SmilesToAtoms/atoms.h5
+    - nodes/H2O_H2SO4/SmilesToAtoms/molecule.png
+    - nodes/H2O_H2SO4/SmilesToAtoms/node-meta.json
+    - nodes/H2O_H2SO4/SmilesToAtoms_1/atoms.h5
+    - nodes/H2O_H2SO4/SmilesToAtoms_1/molecule.png
+    - nodes/H2O_H2SO4/SmilesToAtoms_1/node-meta.json
+    metrics:
+    - nodes/H2O_H2SO4/Packmol/node-meta.json:
+        cache: false
+    outs:
+    - nodes/H2O_H2SO4/Packmol/atoms.h5
+    - nodes/H2O_H2SO4/Packmol/packmol
+    params:
+    - H2O_H2SO4_Packmol
+  H2O_H2SO4_SmilesToAtoms:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name H2O_H2SO4_SmilesToAtoms
+    metrics:
+    - nodes/H2O_H2SO4/SmilesToAtoms/node-meta.json:
+        cache: false
+    outs:
+    - nodes/H2O_H2SO4/SmilesToAtoms/atoms.h5
+    - nodes/H2O_H2SO4/SmilesToAtoms/molecule.png
+    params:
+    - H2O_H2SO4_SmilesToAtoms
+  H2O_H2SO4_SmilesToAtoms_1:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name H2O_H2SO4_SmilesToAtoms_1
+    metrics:
+    - nodes/H2O_H2SO4/SmilesToAtoms_1/node-meta.json:
+        cache: false
+    outs:
+    - nodes/H2O_H2SO4/SmilesToAtoms_1/atoms.h5
+    - nodes/H2O_H2SO4/SmilesToAtoms_1/molecule.png
+    params:
+    - H2O_H2SO4_SmilesToAtoms_1
+  H2O_Packmol:
+    cmd: zntrack run ipsuite.nodes.Packmol --name H2O_Packmol
+    deps:
+    - nodes/H2O/SmilesToAtoms/atoms.h5
+    - nodes/H2O/SmilesToAtoms/molecule.png
+    - nodes/H2O/SmilesToAtoms/node-meta.json
+    metrics:
+    - nodes/H2O/Packmol/node-meta.json:
+        cache: false
+    outs:
+    - nodes/H2O/Packmol/atoms.h5
+    - nodes/H2O/Packmol/packmol
+    params:
+    - H2O_Packmol
+  H2O_SmilesToAtoms:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name H2O_SmilesToAtoms
+    metrics:
+    - nodes/H2O/SmilesToAtoms/node-meta.json:
+        cache: false
+    outs:
+    - nodes/H2O/SmilesToAtoms/atoms.h5
+    - nodes/H2O/SmilesToAtoms/molecule.png
+    params:
+    - H2O_SmilesToAtoms
+  LoadModel:
+    cmd: zntrack run src.LoadModel --name LoadModel
+    deps:
+    - 2023-08-14-mace-universal.model
+    metrics:
+    - nodes/LoadModel/node-meta.json:
+        cache: false
+  DCM_H2SO4_SmilesToAtoms:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name DCM_H2SO4_SmilesToAtoms
+    params:
+    - DCM_H2SO4_SmilesToAtoms
+    outs:
+    - nodes/DCM_H2SO4/SmilesToAtoms/atoms.h5
+    - nodes/DCM_H2SO4/SmilesToAtoms/molecule.png
+    metrics:
+    - nodes/DCM_H2SO4/SmilesToAtoms/node-meta.json:
+        cache: false
+  DCM_H2SO4_SmilesToAtoms_1:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name DCM_H2SO4_SmilesToAtoms_1
+    params:
+    - DCM_H2SO4_SmilesToAtoms_1
+    outs:
+    - nodes/DCM_H2SO4/SmilesToAtoms_1/atoms.h5
+    - nodes/DCM_H2SO4/SmilesToAtoms_1/molecule.png
+    metrics:
+    - nodes/DCM_H2SO4/SmilesToAtoms_1/node-meta.json:
+        cache: false
+  DCM_H2SO4_Packmol:
+    cmd: zntrack run ipsuite.nodes.Packmol --name DCM_H2SO4_Packmol
+    deps:
+    - nodes/DCM_H2SO4/SmilesToAtoms/atoms.h5
+    - nodes/DCM_H2SO4/SmilesToAtoms/molecule.png
+    - nodes/DCM_H2SO4/SmilesToAtoms/node-meta.json
+    - nodes/DCM_H2SO4/SmilesToAtoms_1/atoms.h5
+    - nodes/DCM_H2SO4/SmilesToAtoms_1/molecule.png
+    - nodes/DCM_H2SO4/SmilesToAtoms_1/node-meta.json
+    params:
+    - DCM_H2SO4_Packmol
+    outs:
+    - nodes/DCM_H2SO4/Packmol/atoms.h5
+    - nodes/DCM_H2SO4/Packmol/packmol
+    metrics:
+    - nodes/DCM_H2SO4/Packmol/node-meta.json:
+        cache: false
+  DCM_H2SO4_ASEGeoOpt:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name DCM_H2SO4_ASEGeoOpt
+    deps:
+    - nodes/DCM_H2SO4/Packmol/atoms.h5
+    - nodes/DCM_H2SO4/Packmol/node-meta.json
+    - nodes/DCM_H2SO4/Packmol/packmol
+    - nodes/LoadModel/node-meta.json
+    params:
+    - DCM_H2SO4_ASEGeoOpt
+    outs:
+    - nodes/DCM_H2SO4/ASEGeoOpt/model_outs
+    - nodes/DCM_H2SO4/ASEGeoOpt/trajectory.h5
+    metrics:
+    - nodes/DCM_H2SO4/ASEGeoOpt/node-meta.json:
+        cache: false
+  DCM_H2SO4_ASEMD:
+    cmd: zntrack run ipsuite.nodes.ASEMD --name DCM_H2SO4_ASEMD
+    deps:
+    - nodes/DCM_H2SO4/ASEGeoOpt/model_outs
+    - nodes/DCM_H2SO4/ASEGeoOpt/node-meta.json
+    - nodes/DCM_H2SO4/ASEGeoOpt/trajectory.h5
+    - nodes/LoadModel/node-meta.json
+    params:
+    - DCM_H2SO4_ASEMD
+    - DCM_H2SO4_ASEMD+thermostat
+    outs:
+    - nodes/DCM_H2SO4/ASEMD/metrics_dict.csv
+    - nodes/DCM_H2SO4/ASEMD/model
+    - nodes/DCM_H2SO4/ASEMD/trajectory.h5
+    metrics:
+    - nodes/DCM_H2SO4/ASEMD/node-meta.json:
+        cache: false
+    - nodes/DCM_H2SO4/ASEMD/steps_before_stopping.json:
+        cache: false
