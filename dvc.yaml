@@ -365,3 +365,74 @@ stages:
     metrics:
     - nodes/LoadModel/node-meta.json:
         cache: false
+  nylon_SmilesToAtoms:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name nylon_SmilesToAtoms
+    params:
+    - nylon_SmilesToAtoms
+    outs:
+    - nodes/nylon/SmilesToAtoms/atoms.h5
+    - nodes/nylon/SmilesToAtoms/molecule.png
+    metrics:
+    - nodes/nylon/SmilesToAtoms/node-meta.json:
+        cache: false
+  nylon_SmilesToAtoms_1:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name nylon_SmilesToAtoms_1
+    params:
+    - nylon_SmilesToAtoms_1
+    outs:
+    - nodes/nylon/SmilesToAtoms_1/atoms.h5
+    - nodes/nylon/SmilesToAtoms_1/molecule.png
+    metrics:
+    - nodes/nylon/SmilesToAtoms_1/node-meta.json:
+        cache: false
+  nylon_Packmol:
+    cmd: zntrack run ipsuite.nodes.Packmol --name nylon_Packmol
+    deps:
+    - nodes/nylon/SmilesToAtoms/atoms.h5
+    - nodes/nylon/SmilesToAtoms/molecule.png
+    - nodes/nylon/SmilesToAtoms/node-meta.json
+    - nodes/nylon/SmilesToAtoms_1/atoms.h5
+    - nodes/nylon/SmilesToAtoms_1/molecule.png
+    - nodes/nylon/SmilesToAtoms_1/node-meta.json
+    params:
+    - nylon_Packmol
+    outs:
+    - nodes/nylon/Packmol/atoms.h5
+    - nodes/nylon/Packmol/packmol
+    metrics:
+    - nodes/nylon/Packmol/node-meta.json:
+        cache: false
+  nylon_ASEGeoOpt:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name nylon_ASEGeoOpt
+    deps:
+    - nodes/LoadModel/node-meta.json
+    - nodes/nylon/Packmol/atoms.h5
+    - nodes/nylon/Packmol/node-meta.json
+    - nodes/nylon/Packmol/packmol
+    params:
+    - nylon_ASEGeoOpt
+    outs:
+    - nodes/nylon/ASEGeoOpt/model_outs
+    - nodes/nylon/ASEGeoOpt/trajectory.h5
+    metrics:
+    - nodes/nylon/ASEGeoOpt/node-meta.json:
+        cache: false
+  nylon_ASEMD:
+    cmd: zntrack run ipsuite.nodes.ASEMD --name nylon_ASEMD
+    deps:
+    - nodes/LoadModel/node-meta.json
+    - nodes/nylon/ASEGeoOpt/model_outs
+    - nodes/nylon/ASEGeoOpt/node-meta.json
+    - nodes/nylon/ASEGeoOpt/trajectory.h5
+    params:
+    - nylon_ASEMD
+    - nylon_ASEMD+thermostat
+    outs:
+    - nodes/nylon/ASEMD/metrics_dict.csv
+    - nodes/nylon/ASEMD/model
+    - nodes/nylon/ASEMD/trajectory.h5
+    metrics:
+    - nodes/nylon/ASEMD/node-meta.json:
+        cache: false
+    - nodes/nylon/ASEMD/steps_before_stopping.json:
+        cache: false

@@ -1264,3 +1264,207 @@ stages:
       hash: md5
       md5: f5274efbbd31d00f42363a3069950e71
       size: 10620004656
+  nylon_SmilesToAtoms:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name nylon_SmilesToAtoms
+    params:
+      params.yaml:
+        nylon_SmilesToAtoms:
+          cell:
+          optimizer: UFF
+          seed: 1234
+          smiles: ClC(=O)CCCCC(Cl)=O
+    outs:
+    - path: nodes/nylon/SmilesToAtoms/atoms.h5
+      hash: md5
+      md5: db72144e45a77063eb9de5315637b482
+      size: 27968
+    - path: nodes/nylon/SmilesToAtoms/molecule.png
+      hash: md5
+      md5: ebc325e2b2f59caabf5c8bafefba2b7f
+      size: 6188
+    - path: nodes/nylon/SmilesToAtoms/node-meta.json
+      hash: md5
+      md5: 51b142cc8ba03426a51744712d1ea8e5
+      size: 48
+  nylon_SmilesToAtoms_1:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name nylon_SmilesToAtoms_1
+    params:
+      params.yaml:
+        nylon_SmilesToAtoms_1:
+          cell:
+          optimizer: UFF
+          seed: 1234
+          smiles: NCCCCCCN
+    outs:
+    - path: nodes/nylon/SmilesToAtoms_1/atoms.h5
+      hash: md5
+      md5: da3f8e9d5867cce4f5d7332174b21886
+      size: 27968
+    - path: nodes/nylon/SmilesToAtoms_1/molecule.png
+      hash: md5
+      md5: e0fbdf78cbe94b67bfdf64a459b40d55
+      size: 4323
+    - path: nodes/nylon/SmilesToAtoms_1/node-meta.json
+      hash: md5
+      md5: 474af84a32b8f8880f43c8a9b0f29915
+      size: 48
+  nylon_Packmol:
+    cmd: zntrack run ipsuite.nodes.Packmol --name nylon_Packmol
+    deps:
+    - path: nodes/nylon/SmilesToAtoms/atoms.h5
+      hash: md5
+      md5: db72144e45a77063eb9de5315637b482
+      size: 27968
+    - path: nodes/nylon/SmilesToAtoms/molecule.png
+      hash: md5
+      md5: ebc325e2b2f59caabf5c8bafefba2b7f
+      size: 6188
+    - path: nodes/nylon/SmilesToAtoms/node-meta.json
+      hash: md5
+      md5: 51b142cc8ba03426a51744712d1ea8e5
+      size: 48
+    - path: nodes/nylon/SmilesToAtoms_1/atoms.h5
+      hash: md5
+      md5: da3f8e9d5867cce4f5d7332174b21886
+      size: 27968
+    - path: nodes/nylon/SmilesToAtoms_1/molecule.png
+      hash: md5
+      md5: e0fbdf78cbe94b67bfdf64a459b40d55
+      size: 4323
+    - path: nodes/nylon/SmilesToAtoms_1/node-meta.json
+      hash: md5
+      md5: 474af84a32b8f8880f43c8a9b0f29915
+      size: 48
+    params:
+      params.yaml:
+        nylon_Packmol:
+          box:
+          count:
+          - 10
+          - 10
+          data_ids:
+          density: 1000
+          pbc: true
+          tolerance: 2.0
+    outs:
+    - path: nodes/nylon/Packmol/atoms.h5
+      hash: md5
+      md5: b0b744afe64f4f0703090a285dca5b5e
+      size: 41408
+    - path: nodes/nylon/Packmol/node-meta.json
+      hash: md5
+      md5: 311d2bf44fb0ae90675a5068c51becec
+      size: 48
+    - path: nodes/nylon/Packmol/packmol
+      hash: md5
+      md5: a82ae2a1b5032d68b60a08961bca38d7.dir
+      size: 26338
+      nfiles: 4
+  nylon_ASEGeoOpt:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name nylon_ASEGeoOpt
+    deps:
+    - path: nodes/LoadModel/node-meta.json
+      hash: md5
+      md5: f0940c3b5311cae757f3c3a72c27db0a
+      size: 48
+    - path: nodes/nylon/Packmol/atoms.h5
+      hash: md5
+      md5: b0b744afe64f4f0703090a285dca5b5e
+      size: 41408
+    - path: nodes/nylon/Packmol/node-meta.json
+      hash: md5
+      md5: 311d2bf44fb0ae90675a5068c51becec
+      size: 48
+    - path: nodes/nylon/Packmol/packmol
+      hash: md5
+      md5: a82ae2a1b5032d68b60a08961bca38d7.dir
+      size: 26338
+      nfiles: 4
+    params:
+      params.yaml:
+        nylon_ASEGeoOpt:
+          data_id: 0
+          dump_rate: 1000
+          init_kwargs: {}
+          optimizer: FIRE
+          repeat:
+          - 1
+          - 1
+          - 1
+          run_kwargs:
+            fmax: 0.05
+    outs:
+    - path: nodes/nylon/ASEGeoOpt/model_outs
+      hash: md5
+      md5: 64586897446153f477c052dd0e2579ad.dir
+      size: 11
+      nfiles: 1
+    - path: nodes/nylon/ASEGeoOpt/node-meta.json
+      hash: md5
+      md5: effb0207deb1d1873ab8ff1a8fe18f1a
+      size: 48
+    - path: nodes/nylon/ASEGeoOpt/trajectory.h5
+      hash: md5
+      md5: 7146b592fcccce378186823b54031272
+      size: 7855880
+  nylon_ASEMD:
+    cmd: zntrack run ipsuite.nodes.ASEMD --name nylon_ASEMD
+    deps:
+    - path: nodes/LoadModel/node-meta.json
+      hash: md5
+      md5: f0940c3b5311cae757f3c3a72c27db0a
+      size: 48
+    - path: nodes/nylon/ASEGeoOpt/model_outs
+      hash: md5
+      md5: 64586897446153f477c052dd0e2579ad.dir
+      size: 11
+      nfiles: 1
+    - path: nodes/nylon/ASEGeoOpt/node-meta.json
+      hash: md5
+      md5: effb0207deb1d1873ab8ff1a8fe18f1a
+      size: 48
+    - path: nodes/nylon/ASEGeoOpt/trajectory.h5
+      hash: md5
+      md5: 7146b592fcccce378186823b54031272
+      size: 7855880
+    params:
+      params.yaml:
+        nylon_ASEMD:
+          data_id: -1
+          dump_rate: 1000
+          pop_last: false
+          repeat:
+          - 1
+          - 1
+          - 1
+          sampling_rate: 1
+          seed: 42
+          steps: 175000
+          use_momenta: false
+          wrap: false
+        nylon_ASEMD+thermostat:
+          friction: 0.01
+          temperature: 298.15
+          time_step: 0.5
+    outs:
+    - path: nodes/nylon/ASEMD/metrics_dict.csv
+      hash: md5
+      md5: d41d8cd98f00b204e9800998ecf8427e
+      size: 0
+    - path: nodes/nylon/ASEMD/model
+      hash: md5
+      md5: 64586897446153f477c052dd0e2579ad.dir
+      size: 11
+      nfiles: 1
+    - path: nodes/nylon/ASEMD/node-meta.json
+      hash: md5
+      md5: f84956d873d474e9ae7aa2b5601a3bf0
+      size: 48
+    - path: nodes/nylon/ASEMD/steps_before_stopping.json
+      hash: md5
+      md5: d41d8cd98f00b204e9800998ecf8427e
+      size: 0
+    - path: nodes/nylon/ASEMD/trajectory.h5
+      hash: md5
+      md5: 905923fa888363c76e27ce37d6f8c657
+      size: 6619489096

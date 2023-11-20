@@ -101,5 +101,24 @@ with project.group("ASA"):
         sampling_rate=1,
     )
 
+with project.group("nylon"):
+    adipyoldichloride = ips.configuration_generation.SmilesToAtoms("ClC(=O)CCCCC(Cl)=O")
+    hexamethylenediamine = ips.configuration_generation.SmilesToAtoms("NCCCCCCN")
+    box = ips.configuration_generation.Packmol(
+        data=[adipyoldichloride.atoms, hexamethylenediamine.atoms],
+        count=[10, 10],
+        density=1000, # should be more like 1259 g/cm3
+    )
+
+    geo_opt = ips.calculators.ASEGeoOpt(data=box.atoms, model=model)
+
+    md = ips.calculators.ASEMD(
+        data=geo_opt.atoms,
+        data_id=-1,
+        model=model,
+        thermostat=thermostat,
+        steps=175000,
+        sampling_rate=1,
+    )
 
 project.build()

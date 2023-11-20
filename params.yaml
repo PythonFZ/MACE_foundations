@@ -233,3 +233,50 @@ H2O_SmilesToAtoms:
     optimizer: UFF
     seed: 1234
     smiles: O
+nylon_ASEGeoOpt:
+    data_id: 0
+    dump_rate: 1000
+    init_kwargs: {}
+    optimizer: FIRE
+    repeat:
+    - 1
+    - 1
+    - 1
+    run_kwargs:
+        fmax: 0.05
+nylon_ASEMD:
+    data_id: -1
+    dump_rate: 1000
+    pop_last: false
+    repeat:
+    - 1
+    - 1
+    - 1
+    sampling_rate: 1
+    seed: 42
+    steps: 175000
+    use_momenta: false
+    wrap: false
+nylon_ASEMD+thermostat:
+    friction: 0.01
+    temperature: 298.15
+    time_step: 0.5
+nylon_Packmol:
+    box: null
+    count:
+    - 10
+    - 10
+    data_ids: null
+    density: 1000
+    pbc: true
+    tolerance: 2.0
+nylon_SmilesToAtoms:
+    cell: null
+    optimizer: UFF
+    seed: 1234
+    smiles: ClC(=O)CCCCC(Cl)=O
+nylon_SmilesToAtoms_1:
+    cell: null
+    optimizer: UFF
+    seed: 1234
+    smiles: NCCCCCCN
