@@ -709,7 +709,7 @@ stages:
           - 1
           sampling_rate: 1
           seed: 42
-          steps: 50000
+          steps: 200000
           use_momenta: false
           wrap: false
         H2O_AcAc_ASEMD+thermostat:
@@ -719,8 +719,8 @@ stages:
     outs:
     - path: nodes/H2O_AcAc/ASEMD/metrics_dict.csv
       hash: md5
-      md5: 9f7780879e1957fe729404ad21f98ed7
-      size: 2159774
+      md5: 91f17098f0e44f45af8a1d5e3a4afe03
+      size: 8776414
     - path: nodes/H2O_AcAc/ASEMD/model
       hash: md5
       md5: 64586897446153f477c052dd0e2579ad.dir
@@ -728,7 +728,7 @@ stages:
       nfiles: 1
     - path: nodes/H2O_AcAc/ASEMD/node-meta.json
       hash: md5
-      md5: 52a694b5cb1984599c21089010e313b2
+      md5: b5591e617983b28ea295bfcbf1df42cd
       size: 48
     - path: nodes/H2O_AcAc/ASEMD/steps_before_stopping.json
       hash: md5
@@ -736,8 +736,8 @@ stages:
       size: 2
     - path: nodes/H2O_AcAc/ASEMD/trajectory.h5
       hash: md5
-      md5: a2e1340f23b7449cd416b2280d9eb82a
-      size: 203846096
+      md5: ea303b7ed915c6a63fc49d87deeebabd
+      size: 815283280
   BMIM_PF6_SmilesToConformers:
     cmd: zntrack run ipsuite.nodes.SmilesToConformers --name BMIM_PF6_SmilesToConformers
     params:
@@ -1030,3 +1030,237 @@ stages:
       hash: md5
       md5: d892215f5d9520b3916ea7e3e289d5bf
       size: 2166208
+  ASA_Packmol:
+    cmd: zntrack run ipsuite.nodes.Packmol --name ASA_Packmol
+    deps:
+    - path: nodes/ASA/SmilesToAtoms/atoms.h5
+      hash: md5
+      md5: 2441cdcbc4733a11829ffa7ab4da6a23
+      size: 27968
+    - path: nodes/ASA/SmilesToAtoms/molecule.png
+      hash: md5
+      md5: f1c93685c30b6c0db3d8e10971be8175
+      size: 11134
+    - path: nodes/ASA/SmilesToAtoms/node-meta.json
+      hash: md5
+      md5: f497a474c4c52d5be4b0fd2eebf646b1
+      size: 48
+    - path: nodes/ASA/SmilesToAtoms_1/atoms.h5
+      hash: md5
+      md5: 5c50c89da2f7f649ced874a6e1100863
+      size: 27968
+    - path: nodes/ASA/SmilesToAtoms_1/molecule.png
+      hash: md5
+      md5: 160bfe45d0198b55717653ced8b13923
+      size: 4952
+    - path: nodes/ASA/SmilesToAtoms_1/node-meta.json
+      hash: md5
+      md5: 335a910da8166180cdacf622f12e3ea7
+      size: 48
+    - path: nodes/ASA/SmilesToAtoms_2/atoms.h5
+      hash: md5
+      md5: d2340b47925a9b999c7cba1ab344c7d2
+      size: 27968
+    - path: nodes/ASA/SmilesToAtoms_2/molecule.png
+      hash: md5
+      md5: 6b69a5aff4695a9a0d33f3cf94096fb1
+      size: 10874
+    - path: nodes/ASA/SmilesToAtoms_2/node-meta.json
+      hash: md5
+      md5: ebf7b295ac1f0b03d8e84af24fc5bec3
+      size: 48
+    params:
+      params.yaml:
+        ASA_Packmol:
+          box:
+          count:
+          - 20
+          - 20
+          - 2
+          data_ids:
+          density: 1000
+          pbc: true
+          tolerance: 2.0
+    outs:
+    - path: nodes/ASA/Packmol/atoms.h5
+      hash: md5
+      md5: eb9f41d353637f807c8206ce2a4229d1
+      size: 46976
+    - path: nodes/ASA/Packmol/node-meta.json
+      hash: md5
+      md5: e82fcd4fdedb8b4df4a8e0568750f870
+      size: 48
+    - path: nodes/ASA/Packmol/packmol
+      hash: md5
+      md5: b1994bab61f366651d822d9c9ce07c7c.dir
+      size: 35952
+      nfiles: 5
+  DCM_H2SO4_ASEMD:
+    cmd: zntrack run ipsuite.nodes.ASEMD --name DCM_H2SO4_ASEMD
+    deps:
+    - path: nodes/DCM_H2SO4/ASEGeoOpt/model_outs
+      hash: md5
+      md5: 64586897446153f477c052dd0e2579ad.dir
+      size: 11
+      nfiles: 1
+    - path: nodes/DCM_H2SO4/ASEGeoOpt/node-meta.json
+      hash: md5
+      md5: b7b5d3962432dfda809d9bde7f0134dc
+      size: 48
+    - path: nodes/DCM_H2SO4/ASEGeoOpt/trajectory.h5
+      hash: md5
+      md5: d892215f5d9520b3916ea7e3e289d5bf
+      size: 2166208
+    - path: nodes/LoadModel/node-meta.json
+      hash: md5
+      md5: f0940c3b5311cae757f3c3a72c27db0a
+      size: 48
+    params:
+      params.yaml:
+        DCM_H2SO4_ASEMD:
+          data_id: -1
+          dump_rate: 1000
+          pop_last: false
+          repeat:
+          - 1
+          - 1
+          - 1
+          sampling_rate: 1
+          seed: 42
+          steps: 50000
+          use_momenta: false
+          wrap: false
+        DCM_H2SO4_ASEMD+thermostat:
+          friction: 0.01
+          temperature: 298.15
+          time_step: 0.5
+    outs:
+    - path: nodes/DCM_H2SO4/ASEMD/metrics_dict.csv
+      hash: md5
+      md5: 6d0435107db4a00ace04cd2e6e2a60e5
+      size: 2157470
+    - path: nodes/DCM_H2SO4/ASEMD/model
+      hash: md5
+      md5: 64586897446153f477c052dd0e2579ad.dir
+      size: 11
+      nfiles: 1
+    - path: nodes/DCM_H2SO4/ASEMD/node-meta.json
+      hash: md5
+      md5: da9ca359b09ab8ed891d7ddc423031f7
+      size: 48
+    - path: nodes/DCM_H2SO4/ASEMD/steps_before_stopping.json
+      hash: md5
+      md5: 6bb61e3b7bce0931da574d19d1d82c88
+      size: 2
+    - path: nodes/DCM_H2SO4/ASEMD/trajectory.h5
+      hash: md5
+      md5: 347a4cafd1ae4336f6f6491457cf0642
+      size: 2303727472
+  ASA_ASEGeoOpt:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name ASA_ASEGeoOpt
+    deps:
+    - path: nodes/ASA/Packmol/atoms.h5
+      hash: md5
+      md5: eb9f41d353637f807c8206ce2a4229d1
+      size: 46976
+    - path: nodes/ASA/Packmol/node-meta.json
+      hash: md5
+      md5: e82fcd4fdedb8b4df4a8e0568750f870
+      size: 48
+    - path: nodes/ASA/Packmol/packmol
+      hash: md5
+      md5: b1994bab61f366651d822d9c9ce07c7c.dir
+      size: 35952
+      nfiles: 5
+    - path: nodes/LoadModel/node-meta.json
+      hash: md5
+      md5: f0940c3b5311cae757f3c3a72c27db0a
+      size: 48
+    params:
+      params.yaml:
+        ASA_ASEGeoOpt:
+          data_id: 0
+          dump_rate: 1000
+          init_kwargs: {}
+          optimizer: FIRE
+          repeat:
+          - 1
+          - 1
+          - 1
+          run_kwargs:
+            fmax: 0.05
+    outs:
+    - path: nodes/ASA/ASEGeoOpt/model_outs
+      hash: md5
+      md5: 64586897446153f477c052dd0e2579ad.dir
+      size: 11
+      nfiles: 1
+    - path: nodes/ASA/ASEGeoOpt/node-meta.json
+      hash: md5
+      md5: 60166cbc9f9018de6cfc376dfdc774c9
+      size: 48
+    - path: nodes/ASA/ASEGeoOpt/trajectory.h5
+      hash: md5
+      md5: 102f856fb621ab7bca1ee01f9c777b08
+      size: 18362360
+  ASA_ASEMD:
+    cmd: zntrack run ipsuite.nodes.ASEMD --name ASA_ASEMD
+    deps:
+    - path: nodes/ASA/ASEGeoOpt/model_outs
+      hash: md5
+      md5: 64586897446153f477c052dd0e2579ad.dir
+      size: 11
+      nfiles: 1
+    - path: nodes/ASA/ASEGeoOpt/node-meta.json
+      hash: md5
+      md5: 60166cbc9f9018de6cfc376dfdc774c9
+      size: 48
+    - path: nodes/ASA/ASEGeoOpt/trajectory.h5
+      hash: md5
+      md5: 102f856fb621ab7bca1ee01f9c777b08
+      size: 18362360
+    - path: nodes/LoadModel/node-meta.json
+      hash: md5
+      md5: f0940c3b5311cae757f3c3a72c27db0a
+      size: 48
+    params:
+      params.yaml:
+        ASA_ASEMD:
+          data_id: -1
+          dump_rate: 1000
+          pop_last: false
+          repeat:
+          - 1
+          - 1
+          - 1
+          sampling_rate: 1
+          seed: 42
+          steps: 200000
+          use_momenta: false
+          wrap: false
+        ASA_ASEMD+thermostat:
+          friction: 0.01
+          temperature: 298.15
+          time_step: 0.5
+    outs:
+    - path: nodes/ASA/ASEMD/metrics_dict.csv
+      hash: md5
+      md5: 4bfab5fb143fd69e169d38c040b92ac2
+      size: 8765479
+    - path: nodes/ASA/ASEMD/model
+      hash: md5
+      md5: 64586897446153f477c052dd0e2579ad.dir
+      size: 11
+      nfiles: 1
+    - path: nodes/ASA/ASEMD/node-meta.json
+      hash: md5
+      md5: fa6f197a07efba3598723138ea7376b4
+      size: 48
+    - path: nodes/ASA/ASEMD/steps_before_stopping.json
+      hash: md5
+      md5: 6bb61e3b7bce0931da574d19d1d82c88
+      size: 2
+    - path: nodes/ASA/ASEMD/trajectory.h5
+      hash: md5
+      md5: f5274efbbd31d00f42363a3069950e71
+      size: 10620004656

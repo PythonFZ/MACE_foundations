@@ -79,24 +79,6 @@ with project.group("H2O_AcAc"):
         sampling_rate=1,
     )
 
-with project.group("BMIM_PF6"):
-    cation = ips.configuration_generation.SmilesToConformers(smiles="CCCCN1C=C[N+](=C1)C", numConfs=200)
-    anion = ips.configuration_generation.SmilesToConformers(smiles="F[P-](F)(F)(F)(F)F", numConfs=200)
-    single_structure = ips.configuration_generation.MultiPackmol(
-        data=[cation.atoms, anion.atoms],
-        count=[1, 1],
-        density=1380,
-        pbc=False,
-        n_configurations=200,
-    )
-
-    structure = ips.configuration_generation.MultiPackmol(
-        data=[single_structure.atoms],
-        count=[10],
-        density=1380,
-        n_configurations=20,
-    )
-
 with project.group("ASA"):
     salicylic_acid = ips.configuration_generation.SmilesToAtoms("C1=CC=C(C(=C1)C(=O)O)O")
     acac = ips.configuration_generation.SmilesToAtoms("CC(=O)OC(=O)C")

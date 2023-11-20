@@ -51,37 +51,6 @@ ASA_SmilesToAtoms_2:
     optimizer: UFF
     seed: 1234
     smiles: OS(=O)(=O)O
-BMIM_PF6_MultiPackmol:
-    box: null
-    count:
-    - 1
-    - 1
-    density: 1380
-    n_configurations: 200
-    pbc: false
-    seed: 42
-    tolerance: 2.0
-BMIM_PF6_MultiPackmol_1:
-    box: null
-    count:
-    - 10
-    density: 1380
-    n_configurations: 20
-    pbc: true
-    seed: 42
-    tolerance: 2.0
-BMIM_PF6_SmilesToConformers:
-    cell: 100
-    maxAttempts: 1000
-    numConfs: 200
-    seed: 42
-    smiles: CCCCN1C=C[N+](=C1)C
-BMIM_PF6_SmilesToConformers_1:
-    cell: 100
-    maxAttempts: 1000
-    numConfs: 200
-    seed: 42
-    smiles: F[P-](F)(F)(F)(F)F
 DCM_H2SO4_ASEGeoOpt:
     data_id: 0
     dump_rate: 1000
