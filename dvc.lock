@@ -1,0 +1,326 @@
+schema: '2.0'
+stages:
+  LoadModel:
+    cmd: zntrack run src.LoadModel --name LoadModel
+    deps:
+    - path: 2023-08-14-mace-universal.model
+      hash: md5
+      md5: 619bf9f4d5aa7a7a83de8d166cc29595
+      size: 17045559
+    outs:
+    - path: nodes/LoadModel/node-meta.json
+      hash: md5
+      md5: f0940c3b5311cae757f3c3a72c27db0a
+      size: 48
+  BMIM_Cl_SmilesToAtoms:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name BMIM_Cl_SmilesToAtoms
+    params:
+      params.yaml:
+        BMIM_Cl_SmilesToAtoms:
+          cell:
+          optimizer: UFF
+          seed: 1234
+          smiles: CCCCN1C=C[N+](=C1)C
+    outs:
+    - path: nodes/BMIM_Cl/SmilesToAtoms/atoms.h5
+      hash: md5
+      md5: 744f94e60270ed284980820ff3038f19
+      size: 27968
+    - path: nodes/BMIM_Cl/SmilesToAtoms/molecule.png
+      hash: md5
+      md5: a9e6627ebd24d022ae34219e921b7e5f
+      size: 7818
+    - path: nodes/BMIM_Cl/SmilesToAtoms/node-meta.json
+      hash: md5
+      md5: 08187fe7bb3e4d984cf2fc8014aab080
+      size: 48
+  BMIM_Cl_SmilesToAtoms_1:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name BMIM_Cl_SmilesToAtoms_1
+    params:
+      params.yaml:
+        BMIM_Cl_SmilesToAtoms_1:
+          cell:
+          optimizer: UFF
+          seed: 1234
+          smiles: '[Cl-]'
+    outs:
+    - path: nodes/BMIM_Cl/SmilesToAtoms_1/atoms.h5
+      hash: md5
+      md5: 1e408becdcab7f4faa515f2e39ad9639
+      size: 27968
+    - path: nodes/BMIM_Cl/SmilesToAtoms_1/molecule.png
+      hash: md5
+      md5: 43695a51c8173b1296674fc48d134137
+      size: 2231
+    - path: nodes/BMIM_Cl/SmilesToAtoms_1/node-meta.json
+      hash: md5
+      md5: c09674b8d5e5e878229befbfb1c00b28
+      size: 48
+  BMIM_Cl_Packmol:
+    cmd: zntrack run ipsuite.nodes.Packmol --name BMIM_Cl_Packmol
+    deps:
+    - path: nodes/BMIM_Cl/SmilesToAtoms/atoms.h5
+      hash: md5
+      md5: 744f94e60270ed284980820ff3038f19
+      size: 27968
+    - path: nodes/BMIM_Cl/SmilesToAtoms/molecule.png
+      hash: md5
+      md5: a9e6627ebd24d022ae34219e921b7e5f
+      size: 7818
+    - path: nodes/BMIM_Cl/SmilesToAtoms/node-meta.json
+      hash: md5
+      md5: 08187fe7bb3e4d984cf2fc8014aab080
+      size: 48
+    - path: nodes/BMIM_Cl/SmilesToAtoms_1/atoms.h5
+      hash: md5
+      md5: 1e408becdcab7f4faa515f2e39ad9639
+      size: 27968
+    - path: nodes/BMIM_Cl/SmilesToAtoms_1/molecule.png
+      hash: md5
+      md5: 43695a51c8173b1296674fc48d134137
+      size: 2231
+    - path: nodes/BMIM_Cl/SmilesToAtoms_1/node-meta.json
+      hash: md5
+      md5: c09674b8d5e5e878229befbfb1c00b28
+      size: 48
+    params:
+      params.yaml:
+        BMIM_Cl_Packmol:
+          box:
+          count:
+          - 1
+          - 1
+          data_ids:
+          density: 1000
+          pbc: false
+          tolerance: 2.0
+    outs:
+    - path: nodes/BMIM_Cl/Packmol/atoms.h5
+      hash: md5
+      md5: 50ae294f5f3e26e82d7b485a131631a9
+      size: 27968
+    - path: nodes/BMIM_Cl/Packmol/node-meta.json
+      hash: md5
+      md5: 525e4c471cf39facf383128279009731
+      size: 48
+    - path: nodes/BMIM_Cl/Packmol/packmol
+      hash: md5
+      md5: 10067e62dd7a4304d3b8c1cde1fa5960.dir
+      size: 3401
+      nfiles: 4
+  BMIM_Cl_Packmol_1:
+    cmd: zntrack run ipsuite.nodes.Packmol --name BMIM_Cl_Packmol_1
+    deps:
+    - path: nodes/BMIM_Cl/Packmol/atoms.h5
+      hash: md5
+      md5: 50ae294f5f3e26e82d7b485a131631a9
+      size: 27968
+    - path: nodes/BMIM_Cl/Packmol/node-meta.json
+      hash: md5
+      md5: 525e4c471cf39facf383128279009731
+      size: 48
+    - path: nodes/BMIM_Cl/Packmol/packmol
+      hash: md5
+      md5: 10067e62dd7a4304d3b8c1cde1fa5960.dir
+      size: 3401
+      nfiles: 4
+    params:
+      params.yaml:
+        BMIM_Cl_Packmol_1:
+          box:
+          count:
+          - 10
+          data_ids:
+          density: 700
+          pbc: true
+          tolerance: 2.0
+    outs:
+    - path: nodes/BMIM_Cl/Packmol_1/atoms.h5
+      hash: md5
+      md5: 5f3b95b66ba4de9d5a9a35752de8a142
+      size: 36288
+    - path: nodes/BMIM_Cl/Packmol_1/node-meta.json
+      hash: md5
+      md5: 1bf9da9cb89d6cd501f0041aa32e4100
+      size: 48
+    - path: nodes/BMIM_Cl/Packmol_1/packmol
+      hash: md5
+      md5: 6da955de6a51d4406d482ceb97aaeab8.dir
+      size: 16318
+      nfiles: 3
+  BMIM_Cl_ASEGeoOpt:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name BMIM_Cl_ASEGeoOpt
+    deps:
+    - path: nodes/BMIM_Cl/Packmol_1/atoms.h5
+      hash: md5
+      md5: 5f3b95b66ba4de9d5a9a35752de8a142
+      size: 36288
+    - path: nodes/BMIM_Cl/Packmol_1/node-meta.json
+      hash: md5
+      md5: 1bf9da9cb89d6cd501f0041aa32e4100
+      size: 48
+    - path: nodes/BMIM_Cl/Packmol_1/packmol
+      hash: md5
+      md5: 6da955de6a51d4406d482ceb97aaeab8.dir
+      size: 16318
+      nfiles: 3
+    - path: nodes/LoadModel/node-meta.json
+      hash: md5
+      md5: f0940c3b5311cae757f3c3a72c27db0a
+      size: 48
+    params:
+      params.yaml:
+        BMIM_Cl_ASEGeoOpt:
+          data_id: -1
+          dump_rate: 1000
+          init_kwargs: {}
+          optimizer: FIRE
+          repeat:
+          - 1
+          - 1
+          - 1
+          run_kwargs:
+            fmax: 0.5
+    outs:
+    - path: nodes/BMIM_Cl/ASEGeoOpt/model_outs
+      hash: md5
+      md5: 64586897446153f477c052dd0e2579ad.dir
+      size: 11
+      nfiles: 1
+    - path: nodes/BMIM_Cl/ASEGeoOpt/node-meta.json
+      hash: md5
+      md5: e20f30585df5451797e6e925b061ad48
+      size: 48
+    - path: nodes/BMIM_Cl/ASEGeoOpt/trajectory.h5
+      hash: md5
+      md5: 38dfcc183d8e49ba9d50a6ee0d38702a
+      size: 538040
+  BMIM_Cl_ASEMD:
+    cmd: zntrack run ipsuite.nodes.ASEMD --name BMIM_Cl_ASEMD
+    deps:
+    - path: nodes/BMIM_Cl/ASEGeoOpt/model_outs
+      hash: md5
+      md5: 64586897446153f477c052dd0e2579ad.dir
+      size: 11
+      nfiles: 1
+    - path: nodes/BMIM_Cl/ASEGeoOpt/node-meta.json
+      hash: md5
+      md5: e20f30585df5451797e6e925b061ad48
+      size: 48
+    - path: nodes/BMIM_Cl/ASEGeoOpt/trajectory.h5
+      hash: md5
+      md5: 38dfcc183d8e49ba9d50a6ee0d38702a
+      size: 538040
+    - path: nodes/LoadModel/node-meta.json
+      hash: md5
+      md5: f0940c3b5311cae757f3c3a72c27db0a
+      size: 48
+    params:
+      params.yaml:
+        BMIM_Cl_ASEMD:
+          data_id: -1
+          dump_rate: 1000
+          pop_last: false
+          repeat:
+          - 1
+          - 1
+          - 1
+          sampling_rate: 10
+          seed: 42
+          steps: 1000
+          use_momenta: false
+          wrap: false
+        BMIM_Cl_ASEMD+modifier+0:
+          cell:
+          density: 1086
+        BMIM_Cl_ASEMD+thermostat:
+          friction: 0.01
+          temperature: 298.15
+          time_step: 0.5
+    outs:
+    - path: nodes/BMIM_Cl/ASEMD/metrics_dict.csv
+      hash: md5
+      md5: a4191ed3128e50450673aea7d078afd0
+      size: 4061
+    - path: nodes/BMIM_Cl/ASEMD/model
+      hash: md5
+      md5: 64586897446153f477c052dd0e2579ad.dir
+      size: 11
+      nfiles: 1
+    - path: nodes/BMIM_Cl/ASEMD/node-meta.json
+      hash: md5
+      md5: 5822b36a6585ac72288e6f9cdfd04911
+      size: 48
+    - path: nodes/BMIM_Cl/ASEMD/steps_before_stopping.json
+      hash: md5
+      md5: 6bb61e3b7bce0931da574d19d1d82c88
+      size: 2
+    - path: nodes/BMIM_Cl/ASEMD/trajectory.h5
+      hash: md5
+      md5: 5f500034bc6aedbabf09cc8cc5030e5b
+      size: 2350096
+  BMIM_Cl_ASEMD_1:
+    cmd: zntrack run ipsuite.nodes.ASEMD --name BMIM_Cl_ASEMD_1
+    deps:
+    - path: nodes/BMIM_Cl/ASEGeoOpt/model_outs
+      hash: md5
+      md5: 64586897446153f477c052dd0e2579ad.dir
+      size: 11
+      nfiles: 1
+    - path: nodes/BMIM_Cl/ASEGeoOpt/node-meta.json
+      hash: md5
+      md5: e20f30585df5451797e6e925b061ad48
+      size: 48
+    - path: nodes/BMIM_Cl/ASEGeoOpt/trajectory.h5
+      hash: md5
+      md5: 38dfcc183d8e49ba9d50a6ee0d38702a
+      size: 538040
+    - path: nodes/LoadModel/node-meta.json
+      hash: md5
+      md5: f0940c3b5311cae757f3c3a72c27db0a
+      size: 48
+    params:
+      params.yaml:
+        BMIM_Cl_ASEMD_1:
+          data_id: -1
+          dump_rate: 1000
+          pop_last: false
+          repeat:
+          - 1
+          - 1
+          - 1
+          sampling_rate: 100
+          seed: 42
+          steps: 500000
+          use_momenta: false
+          wrap: false
+        BMIM_Cl_ASEMD_1+modifier+0:
+          interval: 1
+          start_temperature: 250
+          temperature: 500
+        BMIM_Cl_ASEMD_1+thermostat:
+          friction: 0.01
+          temperature: 298.15
+          time_step: 0.5
+    outs:
+    - path: nodes/BMIM_Cl/ASEMD_1/metrics_dict.csv
+      hash: md5
+      md5: 01557e345a278255c51cf2295435a263
+      size: 210829
+    - path: nodes/BMIM_Cl/ASEMD_1/model
+      hash: md5
+      md5: 64586897446153f477c052dd0e2579ad.dir
+      size: 11
+      nfiles: 1
+    - path: nodes/BMIM_Cl/ASEMD_1/node-meta.json
+      hash: md5
+      md5: 70350ea8e655730aafb4b349dce3829b
+      size: 48
+    - path: nodes/BMIM_Cl/ASEMD_1/steps_before_stopping.json
+      hash: md5
+      md5: 6bb61e3b7bce0931da574d19d1d82c88
+      size: 2
+    - path: nodes/BMIM_Cl/ASEMD_1/trajectory.h5
+      hash: md5
+      md5: cb25e6bc24f0137155694e7a5434ac60
+      size: 117601504

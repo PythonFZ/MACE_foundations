@@ -1,0 +1,117 @@
+plots:
+- nodes/BMIM_Cl/ASEMD/metrics_dict.csv: {}
+- nodes/BMIM_Cl/ASEMD_1/metrics_dict.csv: {}
+stages:
+  BMIM_Cl_ASEGeoOpt:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name BMIM_Cl_ASEGeoOpt
+    deps:
+    - nodes/BMIM_Cl/Packmol_1/atoms.h5
+    - nodes/BMIM_Cl/Packmol_1/node-meta.json
+    - nodes/BMIM_Cl/Packmol_1/packmol
+    - nodes/LoadModel/node-meta.json
+    metrics:
+    - nodes/BMIM_Cl/ASEGeoOpt/node-meta.json:
+        cache: false
+    outs:
+    - nodes/BMIM_Cl/ASEGeoOpt/model_outs
+    - nodes/BMIM_Cl/ASEGeoOpt/trajectory.h5
+    params:
+    - BMIM_Cl_ASEGeoOpt
+  BMIM_Cl_ASEMD:
+    cmd: zntrack run ipsuite.nodes.ASEMD --name BMIM_Cl_ASEMD
+    deps:
+    - nodes/BMIM_Cl/ASEGeoOpt/model_outs
+    - nodes/BMIM_Cl/ASEGeoOpt/node-meta.json
+    - nodes/BMIM_Cl/ASEGeoOpt/trajectory.h5
+    - nodes/LoadModel/node-meta.json
+    metrics:
+    - nodes/BMIM_Cl/ASEMD/node-meta.json:
+        cache: false
+    - nodes/BMIM_Cl/ASEMD/steps_before_stopping.json:
+        cache: false
+    outs:
+    - nodes/BMIM_Cl/ASEMD/metrics_dict.csv
+    - nodes/BMIM_Cl/ASEMD/model
+    - nodes/BMIM_Cl/ASEMD/trajectory.h5
+    params:
+    - BMIM_Cl_ASEMD
+    - BMIM_Cl_ASEMD+modifier+0
+    - BMIM_Cl_ASEMD+thermostat
+  BMIM_Cl_ASEMD_1:
+    cmd: zntrack run ipsuite.nodes.ASEMD --name BMIM_Cl_ASEMD_1
+    deps:
+    - nodes/BMIM_Cl/ASEGeoOpt/model_outs
+    - nodes/BMIM_Cl/ASEGeoOpt/node-meta.json
+    - nodes/BMIM_Cl/ASEGeoOpt/trajectory.h5
+    - nodes/LoadModel/node-meta.json
+    metrics:
+    - nodes/BMIM_Cl/ASEMD_1/node-meta.json:
+        cache: false
+    - nodes/BMIM_Cl/ASEMD_1/steps_before_stopping.json:
+        cache: false
+    outs:
+    - nodes/BMIM_Cl/ASEMD_1/metrics_dict.csv
+    - nodes/BMIM_Cl/ASEMD_1/model
+    - nodes/BMIM_Cl/ASEMD_1/trajectory.h5
+    params:
+    - BMIM_Cl_ASEMD_1
+    - BMIM_Cl_ASEMD_1+modifier+0
+    - BMIM_Cl_ASEMD_1+thermostat
+  BMIM_Cl_Packmol:
+    cmd: zntrack run ipsuite.nodes.Packmol --name BMIM_Cl_Packmol
+    deps:
+    - nodes/BMIM_Cl/SmilesToAtoms/atoms.h5
+    - nodes/BMIM_Cl/SmilesToAtoms/molecule.png
+    - nodes/BMIM_Cl/SmilesToAtoms/node-meta.json
+    - nodes/BMIM_Cl/SmilesToAtoms_1/atoms.h5
+    - nodes/BMIM_Cl/SmilesToAtoms_1/molecule.png
+    - nodes/BMIM_Cl/SmilesToAtoms_1/node-meta.json
+    metrics:
+    - nodes/BMIM_Cl/Packmol/node-meta.json:
+        cache: false
+    outs:
+    - nodes/BMIM_Cl/Packmol/atoms.h5
+    - nodes/BMIM_Cl/Packmol/packmol
+    params:
+    - BMIM_Cl_Packmol
+  BMIM_Cl_Packmol_1:
+    cmd: zntrack run ipsuite.nodes.Packmol --name BMIM_Cl_Packmol_1
+    deps:
+    - nodes/BMIM_Cl/Packmol/atoms.h5
+    - nodes/BMIM_Cl/Packmol/node-meta.json
+    - nodes/BMIM_Cl/Packmol/packmol
+    metrics:
+    - nodes/BMIM_Cl/Packmol_1/node-meta.json:
+        cache: false
+    outs:
+    - nodes/BMIM_Cl/Packmol_1/atoms.h5
+    - nodes/BMIM_Cl/Packmol_1/packmol
+    params:
+    - BMIM_Cl_Packmol_1
+  BMIM_Cl_SmilesToAtoms:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name BMIM_Cl_SmilesToAtoms
+    metrics:
+    - nodes/BMIM_Cl/SmilesToAtoms/node-meta.json:
+        cache: false
+    outs:
+    - nodes/BMIM_Cl/SmilesToAtoms/atoms.h5
+    - nodes/BMIM_Cl/SmilesToAtoms/molecule.png
+    params:
+    - BMIM_Cl_SmilesToAtoms
+  BMIM_Cl_SmilesToAtoms_1:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name BMIM_Cl_SmilesToAtoms_1
+    metrics:
+    - nodes/BMIM_Cl/SmilesToAtoms_1/node-meta.json:
+        cache: false
+    outs:
+    - nodes/BMIM_Cl/SmilesToAtoms_1/atoms.h5
+    - nodes/BMIM_Cl/SmilesToAtoms_1/molecule.png
+    params:
+    - BMIM_Cl_SmilesToAtoms_1
+  LoadModel:
+    cmd: zntrack run src.LoadModel --name LoadModel
+    deps:
+    - 2023-08-14-mace-universal.model
+    metrics:
+    - nodes/LoadModel/node-meta.json:
+        cache: false
