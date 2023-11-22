@@ -161,3 +161,7 @@ cython_debug/
 
 /2023-08-14-mace-universal.model
 /data
+/dftd3.dat
+/GTH_BASIS_SETS
+/GTH_POTENTIALS
+/BASIS_MOLOPT
