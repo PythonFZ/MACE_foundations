@@ -68,4 +68,10 @@ with project.group("BMIM_Cl"):
         sampling_rate=100,
     )
 
+    selection = ips.configuration_selection.UniformTemporalSelection(
+        data=md.atoms,
+        n_configurations=50,
+    )
+    
+
 project.build()

@@ -324,3 +324,44 @@ stages:
       hash: md5
       md5: cb25e6bc24f0137155694e7a5434ac60
       size: 117601504
+  BMIM_Cl_ConfigurationSelection:
+    cmd: zntrack run ipsuite.nodes.UniformTemporalSelection --name BMIM_Cl_ConfigurationSelection
+    deps:
+    - path: nodes/BMIM_Cl/ASEMD_1/metrics_dict.csv
+      hash: md5
+      md5: 01557e345a278255c51cf2295435a263
+      size: 210829
+    - path: nodes/BMIM_Cl/ASEMD_1/model
+      hash: md5
+      md5: 64586897446153f477c052dd0e2579ad.dir
+      size: 11
+      nfiles: 1
+    - path: nodes/BMIM_Cl/ASEMD_1/node-meta.json
+      hash: md5
+      md5: 70350ea8e655730aafb4b349dce3829b
+      size: 48
+    - path: nodes/BMIM_Cl/ASEMD_1/steps_before_stopping.json
+      hash: md5
+      md5: 6bb61e3b7bce0931da574d19d1d82c88
+      size: 2
+    - path: nodes/BMIM_Cl/ASEMD_1/trajectory.h5
+      hash: md5
+      md5: cb25e6bc24f0137155694e7a5434ac60
+      size: 117601504
+    params:
+      params.yaml:
+        BMIM_Cl_ConfigurationSelection:
+          n_configurations: 50
+    outs:
+    - path: nodes/BMIM_Cl/ConfigurationSelection/node-meta.json
+      hash: md5
+      md5: b6946ed3235c8689410e73336ebfe8a6
+      size: 48
+    - path: nodes/BMIM_Cl/ConfigurationSelection/selected_configurations.json
+      hash: md5
+      md5: a2df9e75928962821dc590f07634b448
+      size: 721
+    - path: nodes/BMIM_Cl/ConfigurationSelection/selection.png
+      hash: md5
+      md5: 40ea7ed070019cb8bbfca4b28d106386
+      size: 32060

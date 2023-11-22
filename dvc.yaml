@@ -115,3 +115,19 @@ stages:
     metrics:
     - nodes/LoadModel/node-meta.json:
         cache: false
+  BMIM_Cl_ConfigurationSelection:
+    cmd: zntrack run ipsuite.nodes.UniformTemporalSelection --name BMIM_Cl_ConfigurationSelection
+    deps:
+    - nodes/BMIM_Cl/ASEMD_1/metrics_dict.csv
+    - nodes/BMIM_Cl/ASEMD_1/model
+    - nodes/BMIM_Cl/ASEMD_1/node-meta.json
+    - nodes/BMIM_Cl/ASEMD_1/steps_before_stopping.json
+    - nodes/BMIM_Cl/ASEMD_1/trajectory.h5
+    params:
+    - BMIM_Cl_ConfigurationSelection
+    outs:
+    - nodes/BMIM_Cl/ConfigurationSelection/selected_configurations.json
+    - nodes/BMIM_Cl/ConfigurationSelection/selection.png
+    metrics:
+    - nodes/BMIM_Cl/ConfigurationSelection/node-meta.json:
+        cache: false
