@@ -36,3 +36,8 @@ class LoadModel(zntrack.Node):
                 SinglePointCalculator(atoms, energy=energy, forces=forces)
             )
         return atoms_list
+
+
+class LoadModelDispersion(LoadModel):
+    def get_calculator(self, device=None, default_dtype="float32", **kwargs) -> MACECalculator:
+        return mace_mp(model=self.model_path, dispersion=True)

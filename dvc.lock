@@ -164,9 +164,9 @@ stages:
       md5: 6da955de6a51d4406d482ceb97aaeab8.dir
       size: 16318
       nfiles: 3
-    - path: nodes/LoadModel/node-meta.json
+    - path: nodes/LoadModelDispersion/node-meta.json
       hash: md5
-      md5: f0940c3b5311cae757f3c3a72c27db0a
+      md5: 07f181c7998f38f02e16df28aff78af5
       size: 48
     params:
       params.yaml:
@@ -189,12 +189,12 @@ stages:
       nfiles: 1
     - path: nodes/BMIM_Cl/ASEGeoOpt/node-meta.json
       hash: md5
-      md5: e20f30585df5451797e6e925b061ad48
+      md5: 7c6b4179455279eb162abc2674039373
       size: 48
     - path: nodes/BMIM_Cl/ASEGeoOpt/trajectory.h5
       hash: md5
-      md5: 38dfcc183d8e49ba9d50a6ee0d38702a
-      size: 538040
+      md5: 2a276da7b176ad1eb5e50e784fb2cacf
+      size: 406640
   BMIM_Cl_ASEMD:
     cmd: zntrack run ipsuite.nodes.ASEMD --name BMIM_Cl_ASEMD
     deps:
@@ -205,15 +205,15 @@ stages:
       nfiles: 1
     - path: nodes/BMIM_Cl/ASEGeoOpt/node-meta.json
       hash: md5
-      md5: e20f30585df5451797e6e925b061ad48
+      md5: 7c6b4179455279eb162abc2674039373
       size: 48
     - path: nodes/BMIM_Cl/ASEGeoOpt/trajectory.h5
       hash: md5
-      md5: 38dfcc183d8e49ba9d50a6ee0d38702a
-      size: 538040
-    - path: nodes/LoadModel/node-meta.json
+      md5: 2a276da7b176ad1eb5e50e784fb2cacf
+      size: 406640
+    - path: nodes/LoadModelDispersion/node-meta.json
       hash: md5
-      md5: f0940c3b5311cae757f3c3a72c27db0a
+      md5: 07f181c7998f38f02e16df28aff78af5
       size: 48
     params:
       params.yaml:
@@ -240,8 +240,8 @@ stages:
     outs:
     - path: nodes/BMIM_Cl/ASEMD/metrics_dict.csv
       hash: md5
-      md5: a4191ed3128e50450673aea7d078afd0
-      size: 4061
+      md5: 0954ad98659cb8ca28fffa5ce74160b2
+      size: 4063
     - path: nodes/BMIM_Cl/ASEMD/model
       hash: md5
       md5: 64586897446153f477c052dd0e2579ad.dir
@@ -249,7 +249,7 @@ stages:
       nfiles: 1
     - path: nodes/BMIM_Cl/ASEMD/node-meta.json
       hash: md5
-      md5: 5822b36a6585ac72288e6f9cdfd04911
+      md5: 38f399b5ea9e5c47b26a52952354771d
       size: 48
     - path: nodes/BMIM_Cl/ASEMD/steps_before_stopping.json
       hash: md5
@@ -257,8 +257,8 @@ stages:
       size: 2
     - path: nodes/BMIM_Cl/ASEMD/trajectory.h5
       hash: md5
-      md5: 5f500034bc6aedbabf09cc8cc5030e5b
-      size: 2350096
+      md5: 9f03f665cf2d4e75eb3f2eff6b271b9f
+      size: 2124424
   BMIM_Cl_ASEMD_1:
     cmd: zntrack run ipsuite.nodes.ASEMD --name BMIM_Cl_ASEMD_1
     deps:
@@ -517,9 +517,9 @@ stages:
       md5: 5692e48c7199015b66aad9666d73702b.dir
       size: 18774
       nfiles: 3
-    - path: nodes/LoadModel/node-meta.json
+    - path: nodes/LoadModelDispersion/node-meta.json
       hash: md5
-      md5: f0940c3b5311cae757f3c3a72c27db0a
+      md5: 07f181c7998f38f02e16df28aff78af5
       size: 48
     params:
       params.yaml:
@@ -542,12 +542,12 @@ stages:
       nfiles: 1
     - path: nodes/BMIM_BF4/ASEGeoOpt/node-meta.json
       hash: md5
-      md5: 8f778f322a0f49d7ea28b7578593c24c
+      md5: d1265ba160960d1c69fcaf4fe7f93151
       size: 48
     - path: nodes/BMIM_BF4/ASEGeoOpt/trajectory.h5
       hash: md5
-      md5: d7cbb0d301f364aa39131bd2e2479156
-      size: 719160
+      md5: d901e7e7c395e327109e7cffb4653cc6
+      size: 639088
   BMIM_BF4_ASEMD:
     cmd: zntrack run ipsuite.nodes.ASEMD --name BMIM_BF4_ASEMD
     deps:
@@ -558,15 +558,15 @@ stages:
       nfiles: 1
     - path: nodes/BMIM_BF4/ASEGeoOpt/node-meta.json
       hash: md5
-      md5: 8f778f322a0f49d7ea28b7578593c24c
+      md5: d1265ba160960d1c69fcaf4fe7f93151
       size: 48
     - path: nodes/BMIM_BF4/ASEGeoOpt/trajectory.h5
       hash: md5
-      md5: d7cbb0d301f364aa39131bd2e2479156
-      size: 719160
-    - path: nodes/LoadModel/node-meta.json
+      md5: d901e7e7c395e327109e7cffb4653cc6
+      size: 639088
+    - path: nodes/LoadModelDispersion/node-meta.json
       hash: md5
-      md5: f0940c3b5311cae757f3c3a72c27db0a
+      md5: 07f181c7998f38f02e16df28aff78af5
       size: 48
     params:
       params.yaml:
@@ -580,21 +580,21 @@ stages:
           - 1
           sampling_rate: 10
           seed: 42
-          steps: 5000
+          steps: 1000
           use_momenta: false
           wrap: false
         BMIM_BF4_ASEMD+modifier+0:
           cell:
-          density: 1210
+          density: 1196
         BMIM_BF4_ASEMD+thermostat:
           friction: 0.01
-          temperature: 298.15
+          temperature: 303.15
           time_step: 0.5
     outs:
     - path: nodes/BMIM_BF4/ASEMD/metrics_dict.csv
       hash: md5
-      md5: 49b0bef62b2fc997cb03870899c4cf64
-      size: 20630
+      md5: d5c5dba419019b2d2c57c7cb4dcc9b65
+      size: 4051
     - path: nodes/BMIM_BF4/ASEMD/model
       hash: md5
       md5: 64586897446153f477c052dd0e2579ad.dir
@@ -602,7 +602,7 @@ stages:
       nfiles: 1
     - path: nodes/BMIM_BF4/ASEMD/node-meta.json
       hash: md5
-      md5: 0cae6caadb7b52980da5aede416093e9
+      md5: 70fb426ba5d374da84bf73e7b4253025
       size: 48
     - path: nodes/BMIM_BF4/ASEMD/steps_before_stopping.json
       hash: md5
@@ -610,5 +610,162 @@ stages:
       size: 2
     - path: nodes/BMIM_BF4/ASEMD/trajectory.h5
       hash: md5
-      md5: 29d675253afe078ebc53778638e871b1
-      size: 13650736
+      md5: 018c441a527d943f2379638836ddba90
+      size: 2444424
+  LoadModelDispersion:
+    cmd: zntrack run src.LoadModelDispersion --name LoadModelDispersion
+    deps:
+    - path: 2023-08-14-mace-universal.model
+      hash: md5
+      md5: 619bf9f4d5aa7a7a83de8d166cc29595
+      size: 17045559
+    outs:
+    - path: nodes/LoadModelDispersion/node-meta.json
+      hash: md5
+      md5: 07f181c7998f38f02e16df28aff78af5
+      size: 48
+  BMIM_Cl_ASEGeoOpt_1:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name BMIM_Cl_ASEGeoOpt_1
+    deps:
+    - path: nodes/BMIM_Cl/Packmol_1/atoms.h5
+      hash: md5
+      md5: 5f3b95b66ba4de9d5a9a35752de8a142
+      size: 36288
+    - path: nodes/BMIM_Cl/Packmol_1/node-meta.json
+      hash: md5
+      md5: 1bf9da9cb89d6cd501f0041aa32e4100
+      size: 48
+    - path: nodes/BMIM_Cl/Packmol_1/packmol
+      hash: md5
+      md5: 6da955de6a51d4406d482ceb97aaeab8.dir
+      size: 16318
+      nfiles: 3
+    - path: nodes/LoadModelDispersion/node-meta.json
+      hash: md5
+      md5: 07f181c7998f38f02e16df28aff78af5
+      size: 48
+    params:
+      params.yaml:
+        BMIM_Cl_ASEGeoOpt_1:
+          data_id: -1
+          dump_rate: 1000
+          init_kwargs: {}
+          optimizer: FIRE
+          repeat:
+          - 1
+          - 1
+          - 1
+          run_kwargs:
+            fmax: 0.5
+    outs:
+    - path: nodes/BMIM_Cl/ASEGeoOpt_1/model_outs
+      hash: md5
+      md5: 64586897446153f477c052dd0e2579ad.dir
+      size: 11
+      nfiles: 1
+    - path: nodes/BMIM_Cl/ASEGeoOpt_1/node-meta.json
+      hash: md5
+      md5: b7b8445f4daf672fd63203317d083f38
+      size: 48
+    - path: nodes/BMIM_Cl/ASEGeoOpt_1/trajectory.h5
+      hash: md5
+      md5: e80ca21a2970ce99277d68e191972ab3
+      size: 406640
+  BMIM_BF4_ASEGeoOpt_1:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name BMIM_BF4_ASEGeoOpt_1
+    deps:
+    - path: nodes/BMIM_BF4/Packmol_1/atoms.h5
+      hash: md5
+      md5: 86fb027599aa2d50941b15978defdbbf
+      size: 37568
+    - path: nodes/BMIM_BF4/Packmol_1/node-meta.json
+      hash: md5
+      md5: c16948dbc5e278760d1d74229153cfbe
+      size: 48
+    - path: nodes/BMIM_BF4/Packmol_1/packmol
+      hash: md5
+      md5: 5692e48c7199015b66aad9666d73702b.dir
+      size: 18774
+      nfiles: 3
+    - path: nodes/LoadModelDispersion/node-meta.json
+      hash: md5
+      md5: 07f181c7998f38f02e16df28aff78af5
+      size: 48
+    params:
+      params.yaml:
+        BMIM_BF4_ASEGeoOpt_1:
+          data_id: -1
+          dump_rate: 1000
+          init_kwargs: {}
+          optimizer: FIRE
+          repeat:
+          - 1
+          - 1
+          - 1
+          run_kwargs:
+            fmax: 0.5
+    outs:
+    - path: nodes/BMIM_BF4/ASEGeoOpt_1/model_outs
+      hash: md5
+      md5: 64586897446153f477c052dd0e2579ad.dir
+      size: 11
+      nfiles: 1
+    - path: nodes/BMIM_BF4/ASEGeoOpt_1/node-meta.json
+      hash: md5
+      md5: 5676bfc347fb9311eb756c643ac956c8
+      size: 48
+    - path: nodes/BMIM_BF4/ASEGeoOpt_1/trajectory.h5
+      hash: md5
+      md5: 5ce9b168d998aba281772e8cce74d559
+      size: 639088
+  BMIM_BF4_BoxScale:
+    cmd: zntrack run ipsuite.nodes.BoxScale --name BMIM_BF4_BoxScale
+    deps:
+    - path: nodes/BMIM_BF4/ASEGeoOpt_1/model_outs
+      hash: md5
+      md5: 64586897446153f477c052dd0e2579ad.dir
+      size: 11
+      nfiles: 1
+    - path: nodes/BMIM_BF4/ASEGeoOpt_1/node-meta.json
+      hash: md5
+      md5: 5676bfc347fb9311eb756c643ac956c8
+      size: 48
+    - path: nodes/BMIM_BF4/ASEGeoOpt_1/trajectory.h5
+      hash: md5
+      md5: 5ce9b168d998aba281772e8cce74d559
+      size: 639088
+    - path: nodes/LoadModel/node-meta.json
+      hash: md5
+      md5: f0940c3b5311cae757f3c3a72c27db0a
+      size: 48
+    params:
+      params.yaml:
+        BMIM_BF4_BoxScale:
+          data_id: -1
+          num: 50
+          start: 0.9
+          stop: 2.0
+        BMIM_BF4_BoxScale+mapping:
+          frozen: false
+    outs:
+    - path: nodes/BMIM_BF4/BoxScale/atoms.h5
+      hash: md5
+      md5: 0a7e3374427f5fc5e36480012c7f7021
+      size: 1304096
+    - path: nodes/BMIM_BF4/BoxScale/energies.csv
+      hash: md5
+      md5: 4ac20bcfd5c9a38ad83a786e1201dad7
+      size: 2012
+    - path: nodes/BMIM_BF4/BoxScale/energy.png
+      hash: md5
+      md5: fce6d20d8925472eca88eff248c76209
+      size: 20070
+    - path: nodes/BMIM_BF4/BoxScale/model
+      hash: md5
+      md5: 64586897446153f477c052dd0e2579ad.dir
+      size: 11
+      nfiles: 1
+    - path: nodes/BMIM_BF4/BoxScale/node-meta.json
+      hash: md5
+      md5: d672d34e97a616823b83852e51ce18a1
+      size: 48
