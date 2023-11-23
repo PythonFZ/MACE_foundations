@@ -1,7 +1,94 @@
 plots:
 - nodes/BMIM_Cl/ASEMD/metrics_dict.csv: {}
 - nodes/BMIM_Cl/ASEMD_1/metrics_dict.csv: {}
+- nodes/BMIM_BF4/ASEMD/metrics_dict.csv: {}
 stages:
+  BMIM_BF4_ASEGeoOpt:
+    cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name BMIM_BF4_ASEGeoOpt
+    deps:
+    - nodes/BMIM_BF4/Packmol_1/atoms.h5
+    - nodes/BMIM_BF4/Packmol_1/node-meta.json
+    - nodes/BMIM_BF4/Packmol_1/packmol
+    - nodes/LoadModel/node-meta.json
+    metrics:
+    - nodes/BMIM_BF4/ASEGeoOpt/node-meta.json:
+        cache: false
+    outs:
+    - nodes/BMIM_BF4/ASEGeoOpt/model_outs
+    - nodes/BMIM_BF4/ASEGeoOpt/trajectory.h5
+    params:
+    - BMIM_BF4_ASEGeoOpt
+  BMIM_BF4_ASEMD:
+    cmd: zntrack run ipsuite.nodes.ASEMD --name BMIM_BF4_ASEMD
+    deps:
+    - nodes/BMIM_BF4/ASEGeoOpt/model_outs
+    - nodes/BMIM_BF4/ASEGeoOpt/node-meta.json
+    - nodes/BMIM_BF4/ASEGeoOpt/trajectory.h5
+    - nodes/LoadModel/node-meta.json
+    metrics:
+    - nodes/BMIM_BF4/ASEMD/node-meta.json:
+        cache: false
+    - nodes/BMIM_BF4/ASEMD/steps_before_stopping.json:
+        cache: false
+    outs:
+    - nodes/BMIM_BF4/ASEMD/metrics_dict.csv
+    - nodes/BMIM_BF4/ASEMD/model
+    - nodes/BMIM_BF4/ASEMD/trajectory.h5
+    params:
+    - BMIM_BF4_ASEMD
+    - BMIM_BF4_ASEMD+modifier+0
+    - BMIM_BF4_ASEMD+thermostat
+  BMIM_BF4_Packmol:
+    cmd: zntrack run ipsuite.nodes.Packmol --name BMIM_BF4_Packmol
+    deps:
+    - nodes/BMIM_BF4/SmilesToAtoms/atoms.h5
+    - nodes/BMIM_BF4/SmilesToAtoms/molecule.png
+    - nodes/BMIM_BF4/SmilesToAtoms/node-meta.json
+    - nodes/BMIM_BF4/SmilesToAtoms_1/atoms.h5
+    - nodes/BMIM_BF4/SmilesToAtoms_1/molecule.png
+    - nodes/BMIM_BF4/SmilesToAtoms_1/node-meta.json
+    metrics:
+    - nodes/BMIM_BF4/Packmol/node-meta.json:
+        cache: false
+    outs:
+    - nodes/BMIM_BF4/Packmol/atoms.h5
+    - nodes/BMIM_BF4/Packmol/packmol
+    params:
+    - BMIM_BF4_Packmol
+  BMIM_BF4_Packmol_1:
+    cmd: zntrack run ipsuite.nodes.Packmol --name BMIM_BF4_Packmol_1
+    deps:
+    - nodes/BMIM_BF4/Packmol/atoms.h5
+    - nodes/BMIM_BF4/Packmol/node-meta.json
+    - nodes/BMIM_BF4/Packmol/packmol
+    metrics:
+    - nodes/BMIM_BF4/Packmol_1/node-meta.json:
+        cache: false
+    outs:
+    - nodes/BMIM_BF4/Packmol_1/atoms.h5
+    - nodes/BMIM_BF4/Packmol_1/packmol
+    params:
+    - BMIM_BF4_Packmol_1
+  BMIM_BF4_SmilesToAtoms:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name BMIM_BF4_SmilesToAtoms
+    metrics:
+    - nodes/BMIM_BF4/SmilesToAtoms/node-meta.json:
+        cache: false
+    outs:
+    - nodes/BMIM_BF4/SmilesToAtoms/atoms.h5
+    - nodes/BMIM_BF4/SmilesToAtoms/molecule.png
+    params:
+    - BMIM_BF4_SmilesToAtoms
+  BMIM_BF4_SmilesToAtoms_1:
+    cmd: zntrack run ipsuite.nodes.SmilesToAtoms --name BMIM_BF4_SmilesToAtoms_1
+    metrics:
+    - nodes/BMIM_BF4/SmilesToAtoms_1/node-meta.json:
+        cache: false
+    outs:
+    - nodes/BMIM_BF4/SmilesToAtoms_1/atoms.h5
+    - nodes/BMIM_BF4/SmilesToAtoms_1/molecule.png
+    params:
+    - BMIM_BF4_SmilesToAtoms_1
   BMIM_Cl_ASEGeoOpt:
     cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name BMIM_Cl_ASEGeoOpt
     deps:
@@ -57,6 +144,22 @@ stages:
     - BMIM_Cl_ASEMD_1
     - BMIM_Cl_ASEMD_1+modifier+0
     - BMIM_Cl_ASEMD_1+thermostat
+  BMIM_Cl_ConfigurationSelection:
+    cmd: zntrack run ipsuite.nodes.UniformTemporalSelection --name BMIM_Cl_ConfigurationSelection
+    deps:
+    - nodes/BMIM_Cl/ASEMD_1/metrics_dict.csv
+    - nodes/BMIM_Cl/ASEMD_1/model
+    - nodes/BMIM_Cl/ASEMD_1/node-meta.json
+    - nodes/BMIM_Cl/ASEMD_1/steps_before_stopping.json
+    - nodes/BMIM_Cl/ASEMD_1/trajectory.h5
+    metrics:
+    - nodes/BMIM_Cl/ConfigurationSelection/node-meta.json:
+        cache: false
+    outs:
+    - nodes/BMIM_Cl/ConfigurationSelection/selected_configurations.json
+    - nodes/BMIM_Cl/ConfigurationSelection/selection.png
+    params:
+    - BMIM_Cl_ConfigurationSelection
   BMIM_Cl_Packmol:
     cmd: zntrack run ipsuite.nodes.Packmol --name BMIM_Cl_Packmol
     deps:
@@ -115,19 +218,25 @@ stages:
     metrics:
     - nodes/LoadModel/node-meta.json:
         cache: false
-  BMIM_Cl_ConfigurationSelection:
-    cmd: zntrack run ipsuite.nodes.UniformTemporalSelection --name BMIM_Cl_ConfigurationSelection
+  BMIM_BF4_ASEMD_1:
+    cmd: zntrack run ipsuite.nodes.ASEMD --name BMIM_BF4_ASEMD_1
     deps:
-    - nodes/BMIM_Cl/ASEMD_1/metrics_dict.csv
-    - nodes/BMIM_Cl/ASEMD_1/model
-    - nodes/BMIM_Cl/ASEMD_1/node-meta.json
-    - nodes/BMIM_Cl/ASEMD_1/steps_before_stopping.json
-    - nodes/BMIM_Cl/ASEMD_1/trajectory.h5
+    - nodes/BMIM_BF4/ASEMD/metrics_dict.csv
+    - nodes/BMIM_BF4/ASEMD/model
+    - nodes/BMIM_BF4/ASEMD/node-meta.json
+    - nodes/BMIM_BF4/ASEMD/steps_before_stopping.json
+    - nodes/BMIM_BF4/ASEMD/trajectory.h5
+    - nodes/LoadModel/node-meta.json
     params:
-    - BMIM_Cl_ConfigurationSelection
+    - BMIM_BF4_ASEMD_1
+    - BMIM_BF4_ASEMD_1+modifier+0
+    - BMIM_BF4_ASEMD_1+thermostat
     outs:
-    - nodes/BMIM_Cl/ConfigurationSelection/selected_configurations.json
-    - nodes/BMIM_Cl/ConfigurationSelection/selection.png
+    - nodes/BMIM_BF4/ASEMD_1/metrics_dict.csv
+    - nodes/BMIM_BF4/ASEMD_1/model
+    - nodes/BMIM_BF4/ASEMD_1/trajectory.h5
     metrics:
-    - nodes/BMIM_Cl/ConfigurationSelection/node-meta.json:
+    - nodes/BMIM_BF4/ASEMD_1/node-meta.json:
+        cache: false
+    - nodes/BMIM_BF4/ASEMD_1/steps_before_stopping.json:
         cache: false

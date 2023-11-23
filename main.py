@@ -72,6 +72,54 @@ with project.group("BMIM_Cl"):
         data=md.atoms,
         n_configurations=50,
     )
-    
 
-project.build()
+ramp_density = ips.calculators.RescaleBoxModifier(
+    density=1210
+)
+
+with project.group("BMIM_BF4") as bmim_bf4:
+    cation = ips.configuration_generation.SmilesToAtoms("CCCCN1C=C[N+](=C1)C")
+    anion = ips.configuration_generation.SmilesToAtoms("[B-](F)(F)(F)F")
+
+    single_structure = ips.configuration_generation.Packmol(
+            data=[cation.atoms, anion.atoms],
+            count=[1, 1],
+            density=1000,
+            pbc=False
+    )
+
+    structure = ips.configuration_generation.Packmol(
+        data=[single_structure.atoms],
+        count=[10],
+        density=700,
+    )
+
+    geo_opt = ips.calculators.ASEGeoOpt(
+        model=model,
+        data=structure.atoms,
+        data_id=-1,
+        optimizer="FIRE",
+        run_kwargs={"fmax": 0.5},
+    )
+
+    density_md = ips.calculators.ASEMD(
+        data=geo_opt.atoms,
+        data_id=-1,
+        model=model,
+        modifier=[ramp_density],
+        thermostat=thermostat,
+        steps=5000,
+        sampling_rate=10,
+    )
+
+    md = ips.calculators.ASEMD(
+        data=density_md.atoms,
+        data_id=-1,
+        model=model,
+        modifier=[ramp_temperature],
+        thermostat=thermostat,
+        steps=500_000,
+        sampling_rate=100,
+    )
+
+project.build(nodes=[bmim_bf4])
