@@ -139,3 +139,22 @@ stages:
     metrics:
     - nodes/LoadModelDispersion/node-meta.json:
         cache: false
+  BMIM_BF4_CP2KSinglePoint:
+    cmd: zntrack run ipsuite.nodes.CP2KSinglePoint --name BMIM_BF4_CP2KSinglePoint
+    deps:
+    - GTH_BASIS_SETS
+    - GTH_POTENTIALS
+    - dftd3.dat
+    - nodes/BMIM_BF4/BoxScale/atoms.h5
+    - nodes/BMIM_BF4/BoxScale/energies.csv
+    - nodes/BMIM_BF4/BoxScale/energy.png
+    - nodes/BMIM_BF4/BoxScale/model
+    - nodes/BMIM_BF4/BoxScale/node-meta.json
+    params:
+    - config/cp2k.yaml:
+    outs:
+    - nodes/BMIM_BF4/CP2KSinglePoint/atoms.h5
+    - nodes/BMIM_BF4/CP2KSinglePoint/cp2k
+    metrics:
+    - nodes/BMIM_BF4/CP2KSinglePoint/node-meta.json:
+        cache: false
