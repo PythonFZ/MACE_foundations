@@ -38,6 +38,28 @@ stages:
     - BMIM_BF4_ASEMD
     - BMIM_BF4_ASEMD+modifier+0
     - BMIM_BF4_ASEMD+thermostat
+  BMIM_BF4_ASEMD_1:
+    cmd: zntrack run ipsuite.nodes.ASEMD --name BMIM_BF4_ASEMD_1
+    deps:
+    - nodes/BMIM_BF4/ASEMD/metrics_dict.csv
+    - nodes/BMIM_BF4/ASEMD/model
+    - nodes/BMIM_BF4/ASEMD/node-meta.json
+    - nodes/BMIM_BF4/ASEMD/steps_before_stopping.json
+    - nodes/BMIM_BF4/ASEMD/trajectory.h5
+    - nodes/LoadModel/node-meta.json
+    metrics:
+    - nodes/BMIM_BF4/ASEMD_1/node-meta.json:
+        cache: false
+    - nodes/BMIM_BF4/ASEMD_1/steps_before_stopping.json:
+        cache: false
+    outs:
+    - nodes/BMIM_BF4/ASEMD_1/metrics_dict.csv
+    - nodes/BMIM_BF4/ASEMD_1/model
+    - nodes/BMIM_BF4/ASEMD_1/trajectory.h5
+    params:
+    - BMIM_BF4_ASEMD_1
+    - BMIM_BF4_ASEMD_1+modifier+0
+    - BMIM_BF4_ASEMD_1+thermostat
   BMIM_BF4_Packmol:
     cmd: zntrack run ipsuite.nodes.Packmol --name BMIM_BF4_Packmol
     deps:
@@ -217,26 +239,4 @@ stages:
     - 2023-08-14-mace-universal.model
     metrics:
     - nodes/LoadModel/node-meta.json:
-        cache: false
-  BMIM_BF4_ASEMD_1:
-    cmd: zntrack run ipsuite.nodes.ASEMD --name BMIM_BF4_ASEMD_1
-    deps:
-    - nodes/BMIM_BF4/ASEMD/metrics_dict.csv
-    - nodes/BMIM_BF4/ASEMD/model
-    - nodes/BMIM_BF4/ASEMD/node-meta.json
-    - nodes/BMIM_BF4/ASEMD/steps_before_stopping.json
-    - nodes/BMIM_BF4/ASEMD/trajectory.h5
-    - nodes/LoadModel/node-meta.json
-    params:
-    - BMIM_BF4_ASEMD_1
-    - BMIM_BF4_ASEMD_1+modifier+0
-    - BMIM_BF4_ASEMD_1+thermostat
-    outs:
-    - nodes/BMIM_BF4/ASEMD_1/metrics_dict.csv
-    - nodes/BMIM_BF4/ASEMD_1/model
-    - nodes/BMIM_BF4/ASEMD_1/trajectory.h5
-    metrics:
-    - nodes/BMIM_BF4/ASEMD_1/node-meta.json:
-        cache: false
-    - nodes/BMIM_BF4/ASEMD_1/steps_before_stopping.json:
         cache: false

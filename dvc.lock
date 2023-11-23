@@ -558,12 +558,12 @@ stages:
       nfiles: 1
     - path: nodes/BMIM_BF4/ASEGeoOpt/node-meta.json
       hash: md5
-      md5: f6456a303faf03d55829176465b87507
+      md5: 8f778f322a0f49d7ea28b7578593c24c
       size: 48
     - path: nodes/BMIM_BF4/ASEGeoOpt/trajectory.h5
       hash: md5
-      md5: 155be89a850b267d8582cc23e448c6c6
-      size: 408552
+      md5: d7cbb0d301f364aa39131bd2e2479156
+      size: 719160
     - path: nodes/LoadModel/node-meta.json
       hash: md5
       md5: f0940c3b5311cae757f3c3a72c27db0a
@@ -593,8 +593,8 @@ stages:
     outs:
     - path: nodes/BMIM_BF4/ASEMD/metrics_dict.csv
       hash: md5
-      md5: 1a9635979489ce5a5f849311b5d97b81
-      size: 20694
+      md5: 49b0bef62b2fc997cb03870899c4cf64
+      size: 20630
     - path: nodes/BMIM_BF4/ASEMD/model
       hash: md5
       md5: 64586897446153f477c052dd0e2579ad.dir
@@ -602,7 +602,7 @@ stages:
       nfiles: 1
     - path: nodes/BMIM_BF4/ASEMD/node-meta.json
       hash: md5
-      md5: 843c60e67cd6cef7a7a0c645ef92f8c9
+      md5: 0cae6caadb7b52980da5aede416093e9
       size: 48
     - path: nodes/BMIM_BF4/ASEMD/steps_before_stopping.json
       hash: md5
@@ -610,5 +610,5 @@ stages:
       size: 2
     - path: nodes/BMIM_BF4/ASEMD/trajectory.h5
       hash: md5
-      md5: 8859f71feb30146af26569a18da82931
-      size: 13295920
+      md5: 29d675253afe078ebc53778638e871b1
+      size: 13650736
