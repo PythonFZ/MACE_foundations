@@ -158,3 +158,36 @@ stages:
     metrics:
     - nodes/BMIM_BF4/CP2KSinglePoint/node-meta.json:
         cache: false
+  BMIM_BF4_Prediction:
+    cmd: zntrack run ipsuite.nodes.Prediction --name BMIM_BF4_Prediction
+    deps:
+    - nodes/BMIM_BF4/CP2KSinglePoint/atoms.h5
+    - nodes/BMIM_BF4/CP2KSinglePoint/cp2k
+    - nodes/BMIM_BF4/CP2KSinglePoint/node-meta.json
+    - nodes/LoadModel/node-meta.json
+    outs:
+    - nodes/BMIM_BF4/Prediction/atoms.h5
+    metrics:
+    - nodes/BMIM_BF4/Prediction/node-meta.json:
+        cache: false
+  BMIM_BF4_ForceDecomposition:
+    cmd: zntrack run ipsuite.nodes.ForceDecomposition --name BMIM_BF4_ForceDecomposition
+    deps:
+    - nodes/BMIM_BF4/Prediction/atoms.h5
+    - nodes/BMIM_BF4/Prediction/node-meta.json
+    outs:
+    - nodes/BMIM_BF4/ForceDecomposition/histogram.png
+    - nodes/BMIM_BF4/ForceDecomposition/rot_force.png
+    - nodes/BMIM_BF4/ForceDecomposition/trans_force.png
+    - nodes/BMIM_BF4/ForceDecomposition/vib_force.png
+    metrics:
+    - nodes/BMIM_BF4/ForceDecomposition/node-meta.json:
+        cache: false
+    - nodes/BMIM_BF4/ForceDecomposition/rot_forces.json:
+        cache: false
+    - nodes/BMIM_BF4/ForceDecomposition/trans_forces.json:
+        cache: false
+    - nodes/BMIM_BF4/ForceDecomposition/vib_forces.json:
+        cache: false
+    - nodes/BMIM_BF4/ForceDecomposition/wasserstein_distance.json:
+        cache: false

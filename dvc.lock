@@ -880,3 +880,80 @@ stages:
       hash: md5
       md5: 0edc0247ce3f3a14dea5b0b82e43d322
       size: 48
+  BMIM_BF4_Prediction:
+    cmd: zntrack run ipsuite.nodes.Prediction --name BMIM_BF4_Prediction
+    deps:
+    - path: nodes/BMIM_BF4/CP2KSinglePoint/atoms.h5
+      hash: md5
+      md5: 0f265702fd90a2efc4a4c8542b1e568a
+      size: 887312
+    - path: nodes/BMIM_BF4/CP2KSinglePoint/cp2k
+      hash: md5
+      md5: 0c69dd01ca2dbeea513e075c2b69676f.dir
+      size: 15549504
+      nfiles: 3
+    - path: nodes/BMIM_BF4/CP2KSinglePoint/node-meta.json
+      hash: md5
+      md5: 0edc0247ce3f3a14dea5b0b82e43d322
+      size: 48
+    - path: nodes/LoadModel/node-meta.json
+      hash: md5
+      md5: f0940c3b5311cae757f3c3a72c27db0a
+      size: 48
+    outs:
+    - path: nodes/BMIM_BF4/Prediction/atoms.h5
+      hash: md5
+      md5: dfada02dff71e360fd50da67e567bc27
+      size: 1304096
+    - path: nodes/BMIM_BF4/Prediction/node-meta.json
+      hash: md5
+      md5: 2b2e4f4c4f187411204c27997f231eac
+      size: 48
+  BMIM_BF4_ForceDecomposition:
+    cmd: zntrack run ipsuite.nodes.ForceDecomposition --name BMIM_BF4_ForceDecomposition
+    deps:
+    - path: nodes/BMIM_BF4/Prediction/atoms.h5
+      hash: md5
+      md5: dfada02dff71e360fd50da67e567bc27
+      size: 1304096
+    - path: nodes/BMIM_BF4/Prediction/node-meta.json
+      hash: md5
+      md5: 2b2e4f4c4f187411204c27997f231eac
+      size: 48
+    outs:
+    - path: nodes/BMIM_BF4/ForceDecomposition/histogram.png
+      hash: md5
+      md5: 5ac27750378c4647d2a6733e1306b9e0
+      size: 119536
+    - path: nodes/BMIM_BF4/ForceDecomposition/node-meta.json
+      hash: md5
+      md5: 1c6cb22dbbdf823fd49334faed971f45
+      size: 48
+    - path: nodes/BMIM_BF4/ForceDecomposition/rot_force.png
+      hash: md5
+      md5: 5f6b354e0323120aaa5cb4d5f1ca9e81
+      size: 116657
+    - path: nodes/BMIM_BF4/ForceDecomposition/rot_forces.json
+      hash: md5
+      md5: 38c72a94ac895deaa865556d8e4952f0
+      size: 190
+    - path: nodes/BMIM_BF4/ForceDecomposition/trans_force.png
+      hash: md5
+      md5: 89630e2111ee8656f76f82ca70b3b3b7
+      size: 96052
+    - path: nodes/BMIM_BF4/ForceDecomposition/trans_forces.json
+      hash: md5
+      md5: 5a617664aa93288fec63c5ede3a3c989
+      size: 188
+    - path: nodes/BMIM_BF4/ForceDecomposition/vib_force.png
+      hash: md5
+      md5: b83b8225f44ec2647e8376d0eb417701
+      size: 206859
+    - path: nodes/BMIM_BF4/ForceDecomposition/vib_forces.json
+      hash: md5
+      md5: 511e86505419d943aef04fe30d8c8881
+      size: 191
+    - path: nodes/BMIM_BF4/ForceDecomposition/wasserstein_distance.json
+      hash: md5
+      md5: d0f9c38b03dc92d78d07e8056431ef82
+      size: 548

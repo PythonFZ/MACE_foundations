@@ -81,4 +81,7 @@ with project.group("BMIM_BF4"):
             cp2k_files=["GTH_BASIS_SETS", "GTH_POTENTIALS", "dftd3.dat"],
         )
 
+    prediction = ips.analysis.Prediction(cp2k.atoms, model)
+    ips.analysis.ForceDecomposition(prediction)
+
 project.build()
