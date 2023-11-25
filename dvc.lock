@@ -612,3 +612,76 @@ stages:
       hash: md5
       md5: 29d675253afe078ebc53778638e871b1
       size: 13650736
+  BMIM_BF4_ASEMD_1:
+    cmd: zntrack run ipsuite.nodes.ASEMD --name BMIM_BF4_ASEMD_1
+    deps:
+    - path: nodes/BMIM_BF4/ASEMD/metrics_dict.csv
+      hash: md5
+      md5: 49b0bef62b2fc997cb03870899c4cf64
+      size: 20630
+    - path: nodes/BMIM_BF4/ASEMD/model
+      hash: md5
+      md5: 64586897446153f477c052dd0e2579ad.dir
+      size: 11
+      nfiles: 1
+    - path: nodes/BMIM_BF4/ASEMD/node-meta.json
+      hash: md5
+      md5: 0cae6caadb7b52980da5aede416093e9
+      size: 48
+    - path: nodes/BMIM_BF4/ASEMD/steps_before_stopping.json
+      hash: md5
+      md5: 6bb61e3b7bce0931da574d19d1d82c88
+      size: 2
+    - path: nodes/BMIM_BF4/ASEMD/trajectory.h5
+      hash: md5
+      md5: 29d675253afe078ebc53778638e871b1
+      size: 13650736
+    - path: nodes/LoadModel/node-meta.json
+      hash: md5
+      md5: f0940c3b5311cae757f3c3a72c27db0a
+      size: 48
+    params:
+      params.yaml:
+        BMIM_BF4_ASEMD_1:
+          data_id: -1
+          dump_rate: 1000
+          pop_last: false
+          repeat:
+          - 1
+          - 1
+          - 1
+          sampling_rate: 100
+          seed: 42
+          steps: 500000
+          use_momenta: false
+          wrap: false
+        BMIM_BF4_ASEMD_1+modifier+0:
+          interval: 1
+          start_temperature: 250
+          temperature: 500
+        BMIM_BF4_ASEMD_1+thermostat:
+          friction: 0.01
+          temperature: 298.15
+          time_step: 0.5
+    outs:
+    - path: nodes/BMIM_BF4/ASEMD_1/metrics_dict.csv
+      hash: md5
+      md5: 9597df4598a5c8f0e94b936faa276bba
+      size: 210775
+    - path: nodes/BMIM_BF4/ASEMD_1/model
+      hash: md5
+      md5: 64586897446153f477c052dd0e2579ad.dir
+      size: 11
+      nfiles: 1
+    - path: nodes/BMIM_BF4/ASEMD_1/node-meta.json
+      hash: md5
+      md5: 12234b78b2f4425b0d2c6d0aa6f5516d
+      size: 48
+    - path: nodes/BMIM_BF4/ASEMD_1/steps_before_stopping.json
+      hash: md5
+      md5: 6bb61e3b7bce0931da574d19d1d82c88
+      size: 2
+    - path: nodes/BMIM_BF4/ASEMD_1/trajectory.h5
+      hash: md5
+      md5: 52c324144b6ff5e254ca267e62a55cc7
+      size: 135232336

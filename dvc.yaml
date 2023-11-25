@@ -2,6 +2,7 @@ plots:
 - nodes/BMIM_Cl/ASEMD/metrics_dict.csv: {}
 - nodes/BMIM_Cl/ASEMD_1/metrics_dict.csv: {}
 - nodes/BMIM_BF4/ASEMD/metrics_dict.csv: {}
+- nodes/BMIM_BF4/ASEMD_1/metrics_dict.csv: {}
 stages:
   BMIM_BF4_ASEGeoOpt:
     cmd: zntrack run ipsuite.nodes.ASEGeoOpt --name BMIM_BF4_ASEGeoOpt
