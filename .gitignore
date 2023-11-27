@@ -165,3 +165,4 @@ cython_debug/
 /GTH_BASIS_SETS
 /dftd3.dat
 /GTH_POTENTIALS
+slurm-*
