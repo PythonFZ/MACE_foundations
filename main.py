@@ -1,6 +1,6 @@
 import ipsuite as ips
 import zntrack
-from src import LoadModel
+from src import LoadModel, LoadModelDispersion
 
 project = ips.Project(automatic_node_names=True)
 
@@ -10,6 +10,7 @@ thermostat = ips.calculators.LangevinThermostat(
 
 with project:
     model = LoadModel(model_path="2023-08-14-mace-universal.model")
+    model_dispersion = LoadModelDispersion(model_path="2023-08-14-mace-universal.model")
 
 ramp_density = ips.calculators.RescaleBoxModifier(
     density=1086
@@ -133,4 +134,7 @@ with project.group("BMIM_BF4") as bmim_bf4:
         cp2k_files=["GTH_BASIS_SETS", "GTH_POTENTIALS", "dftd3.dat"],
     )
 
-project.build(nodes=[bmim_bf4])
+    prediction = ips.analysis.Prediction(data=cp2k.atoms, model=model_dispersion)
+    prediction_metrics = ips.analysis.PredictionMetrics(data=prediction)
+
+project.build(nodes=[model_dispersion, bmim_bf4])

@@ -828,3 +828,109 @@ stages:
       hash: md5
       md5: 1c47a6d44896d63f553f5a895e0573d4
       size: 48
+  LoadModelDispersion:
+    cmd: zntrack run src.LoadModelDispersion --name LoadModelDispersion
+    deps:
+    - path: 2023-08-14-mace-universal.model
+      hash: md5
+      md5: 619bf9f4d5aa7a7a83de8d166cc29595
+      size: 17045559
+    outs:
+    - path: nodes/LoadModelDispersion/node-meta.json
+      hash: md5
+      md5: 07f181c7998f38f02e16df28aff78af5
+      size: 48
+  BMIM_BF4_Prediction:
+    cmd: zntrack run ipsuite.nodes.Prediction --name BMIM_BF4_Prediction
+    deps:
+    - path: nodes/BMIM_BF4/CP2KSinglePoint/atoms.h5
+      hash: md5
+      md5: 18f14e577785c484efd6c4959882fb34
+      size: 1252296
+    - path: nodes/BMIM_BF4/CP2KSinglePoint/cp2k
+      hash: md5
+      md5: cd8934b90d2dc7830b131ca5c5d9172b.dir
+      size: 15433965
+      nfiles: 3
+    - path: nodes/BMIM_BF4/CP2KSinglePoint/node-meta.json
+      hash: md5
+      md5: 1c47a6d44896d63f553f5a895e0573d4
+      size: 48
+    - path: nodes/LoadModelDispersion/node-meta.json
+      hash: md5
+      md5: 07f181c7998f38f02e16df28aff78af5
+      size: 48
+    outs:
+    - path: nodes/BMIM_BF4/Prediction/atoms.h5
+      hash: md5
+      md5: 07530b92d13f296e7a0f24b44a2c7502
+      size: 1675072
+    - path: nodes/BMIM_BF4/Prediction/node-meta.json
+      hash: md5
+      md5: 1257eea6ac5e3964eea04a402469a5f4
+      size: 48
+  BMIM_BF4_PredictionMetrics:
+    cmd: zntrack run ipsuite.nodes.PredictionMetrics --name BMIM_BF4_PredictionMetrics
+    deps:
+    - path: nodes/BMIM_BF4/Prediction/atoms.h5
+      hash: md5
+      md5: 07530b92d13f296e7a0f24b44a2c7502
+      size: 1675072
+    - path: nodes/BMIM_BF4/Prediction/node-meta.json
+      hash: md5
+      md5: 1257eea6ac5e3964eea04a402469a5f4
+      size: 48
+    params:
+      params.yaml:
+        BMIM_BF4_PredictionMetrics:
+          normalize: true
+    outs:
+    - path: nodes/BMIM_BF4/PredictionMetrics/deviat_stress.json
+      hash: md5
+      md5: 9bb2519f557c35c489252c27c958b2b5
+      size: 206
+    - path: nodes/BMIM_BF4/PredictionMetrics/energy.json
+      hash: md5
+      md5: 307bceca28e678b3f54c2f012af1ea82
+      size: 193
+    - path: nodes/BMIM_BF4/PredictionMetrics/energy_df.csv
+      hash: md5
+      md5: 0464dbabc848166fbb734f3f8a8802a9
+      size: 2116
+    - path: nodes/BMIM_BF4/PredictionMetrics/forces.json
+      hash: md5
+      md5: f9243107d8ba1f8ef22afc847f43000d
+      size: 190
+    - path: nodes/BMIM_BF4/PredictionMetrics/forces_df.csv
+      hash: md5
+      md5: 14b12740c147bb4886c7c6a4cd6466e0
+      size: 2249064
+    - path: nodes/BMIM_BF4/PredictionMetrics/hydro_stress.json
+      hash: md5
+      md5: 4df1bbf5e741699e8c9bed8418b894d2
+      size: 203
+    - path: nodes/BMIM_BF4/PredictionMetrics/node-meta.json
+      hash: md5
+      md5: c6ab485c10365594dbb251b6238412cd
+      size: 48
+    - path: nodes/BMIM_BF4/PredictionMetrics/plots
+      hash: md5
+      md5: c56ecb17f96fad1b51ca73941934dc49.dir
+      size: 425112
+      nfiles: 5
+    - path: nodes/BMIM_BF4/PredictionMetrics/stress.json
+      hash: md5
+      md5: d63163bce7a2ee474feaf335d8f3174b
+      size: 202
+    - path: nodes/BMIM_BF4/PredictionMetrics/stress_deviatoric_df.csv
+      hash: md5
+      md5: f967cdd8a2c9c27b0b56d8d8899334e1
+      size: 20911
+    - path: nodes/BMIM_BF4/PredictionMetrics/stress_df.csv
+      hash: md5
+      md5: 2593a3f3fb794c07a512907afe6c6b43
+      size: 20261
+    - path: nodes/BMIM_BF4/PredictionMetrics/stress_hydrostatic_df.csv
+      hash: md5
+      md5: ef95a6b2dc9288d600a9534735464353
+      size: 2277

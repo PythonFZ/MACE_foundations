@@ -274,3 +274,49 @@ stages:
     metrics:
     - nodes/BMIM_BF4/CP2KSinglePoint/node-meta.json:
         cache: false
+  BMIM_BF4_Prediction:
+    cmd: zntrack run ipsuite.nodes.Prediction --name BMIM_BF4_Prediction
+    deps:
+    - nodes/BMIM_BF4/CP2KSinglePoint/atoms.h5
+    - nodes/BMIM_BF4/CP2KSinglePoint/cp2k
+    - nodes/BMIM_BF4/CP2KSinglePoint/node-meta.json
+    - nodes/LoadModelDispersion/node-meta.json
+    outs:
+    - nodes/BMIM_BF4/Prediction/atoms.h5
+    metrics:
+    - nodes/BMIM_BF4/Prediction/node-meta.json:
+        cache: false
+  BMIM_BF4_PredictionMetrics:
+    cmd: zntrack run ipsuite.nodes.PredictionMetrics --name BMIM_BF4_PredictionMetrics
+    deps:
+    - nodes/BMIM_BF4/Prediction/atoms.h5
+    - nodes/BMIM_BF4/Prediction/node-meta.json
+    outs:
+    - nodes/BMIM_BF4/PredictionMetrics/energy_df.csv
+    - nodes/BMIM_BF4/PredictionMetrics/forces_df.csv
+    - nodes/BMIM_BF4/PredictionMetrics/plots
+    - nodes/BMIM_BF4/PredictionMetrics/stress_deviatoric_df.csv
+    - nodes/BMIM_BF4/PredictionMetrics/stress_df.csv
+    - nodes/BMIM_BF4/PredictionMetrics/stress_hydrostatic_df.csv
+    metrics:
+    - nodes/BMIM_BF4/PredictionMetrics/deviat_stress.json:
+        cache: false
+    - nodes/BMIM_BF4/PredictionMetrics/energy.json:
+        cache: false
+    - nodes/BMIM_BF4/PredictionMetrics/forces.json:
+        cache: false
+    - nodes/BMIM_BF4/PredictionMetrics/hydro_stress.json:
+        cache: false
+    - nodes/BMIM_BF4/PredictionMetrics/node-meta.json:
+        cache: false
+    - nodes/BMIM_BF4/PredictionMetrics/stress.json:
+        cache: false
+    params:
+    - BMIM_BF4_PredictionMetrics
+  LoadModelDispersion:
+    cmd: zntrack run src.LoadModelDispersion --name LoadModelDispersion
+    deps:
+    - 2023-08-14-mace-universal.model
+    metrics:
+    - nodes/LoadModelDispersion/node-meta.json:
+        cache: false

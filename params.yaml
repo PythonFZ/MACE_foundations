@@ -69,6 +69,8 @@ BMIM_BF4_Packmol_1:
     density: 700
     pbc: true
     tolerance: 2.0
+BMIM_BF4_PredictionMetrics:
+    normalize: true
 BMIM_BF4_SmilesToAtoms:
     cell: null
     optimizer: UFF
