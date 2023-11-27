@@ -241,3 +241,36 @@ stages:
     metrics:
     - nodes/LoadModel/node-meta.json:
         cache: false
+  BMIM_BF4_ConfigurationSelection:
+    cmd: zntrack run ipsuite.nodes.UniformTemporalSelection --name BMIM_BF4_ConfigurationSelection
+    deps:
+    - nodes/BMIM_BF4/ASEMD_1/metrics_dict.csv
+    - nodes/BMIM_BF4/ASEMD_1/model
+    - nodes/BMIM_BF4/ASEMD_1/node-meta.json
+    - nodes/BMIM_BF4/ASEMD_1/steps_before_stopping.json
+    - nodes/BMIM_BF4/ASEMD_1/trajectory.h5
+    params:
+    - BMIM_BF4_ConfigurationSelection
+    outs:
+    - nodes/BMIM_BF4/ConfigurationSelection/selected_configurations.json
+    - nodes/BMIM_BF4/ConfigurationSelection/selection.png
+    metrics:
+    - nodes/BMIM_BF4/ConfigurationSelection/node-meta.json:
+        cache: false
+  BMIM_BF4_CP2KSinglePoint:
+    cmd: zntrack run ipsuite.nodes.CP2KSinglePoint --name BMIM_BF4_CP2KSinglePoint
+    deps:
+    - GTH_BASIS_SETS
+    - GTH_POTENTIALS
+    - dftd3.dat
+    - nodes/BMIM_BF4/ConfigurationSelection/node-meta.json
+    - nodes/BMIM_BF4/ConfigurationSelection/selected_configurations.json
+    - nodes/BMIM_BF4/ConfigurationSelection/selection.png
+    params:
+    - config/cp2k.yaml:
+    outs:
+    - nodes/BMIM_BF4/CP2KSinglePoint/atoms.h5
+    - nodes/BMIM_BF4/CP2KSinglePoint/cp2k
+    metrics:
+    - nodes/BMIM_BF4/CP2KSinglePoint/node-meta.json:
+        cache: false
