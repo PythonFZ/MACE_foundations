@@ -191,3 +191,15 @@ stages:
         cache: false
     - nodes/BMIM_BF4/ForceDecomposition/wasserstein_distance.json:
         cache: false
+  BMIM_BF4_Prediction_1:
+    cmd: zntrack run ipsuite.nodes.Prediction --name BMIM_BF4_Prediction_1
+    deps:
+    - nodes/BMIM_BF4/CP2KSinglePoint/atoms.h5
+    - nodes/BMIM_BF4/CP2KSinglePoint/cp2k
+    - nodes/BMIM_BF4/CP2KSinglePoint/node-meta.json
+    - nodes/LoadModelDispersion/node-meta.json
+    outs:
+    - nodes/BMIM_BF4/Prediction_1/atoms.h5
+    metrics:
+    - nodes/BMIM_BF4/Prediction_1/node-meta.json:
+        cache: false

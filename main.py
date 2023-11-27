@@ -84,4 +84,6 @@ with project.group("BMIM_BF4"):
     prediction = ips.analysis.Prediction(cp2k.atoms, model)
     ips.analysis.ForceDecomposition(prediction)
 
+    prediction = ips.analysis.Prediction(cp2k.atoms, model_dispersion)
+
 project.build()
